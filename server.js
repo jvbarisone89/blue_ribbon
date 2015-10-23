@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //Routes
 
 //Index
-app.get('/banks', function (req, res){
+app.get('/', function (req, res){
 	db.Bank.find({}, function(err, banks){
 		if(err){
 			console.log(err);
@@ -30,9 +30,8 @@ app.get('/banks/:_id', function(req,res){
 	res.render('banks-show', {bank: bank});
 });
 
-
 //Create 
-app.post('/banks', function(req, res){
+app.post('/api/banks', function(req, res){
 	db.Bank.create(req.body, function(err, bank){
 	if (err) {
 		res.json(err);
@@ -44,34 +43,33 @@ app.post('/banks', function(req, res){
 });
 
 //Delete
-app.delete('/banks/:_id', function(req,res){
+app.delete('/api/banks/:_id', function(req,res){
 	db.Bank.findById(req.params._id, function(err, bank){
 		if(err){
 			res.json(err);
 		} else {
-			db.Bank.remove(bank);
+			console.log('This bank was deleted: ' + bank);
+			db.Bank.remove(function(err, bank){
 			res.json(bank);
-			console.log('This bank was delete: ' + bank);
-			bank.save();
+			});
 		}
 	});
 });
 
 //Update
-app.put('/banks/:id', function(req, res){
+app.put('/api/banks/:id', function(req, res){
 	db.Bank.findById(req.params.id, function(err, bank){
 	if(err){
 		res.json(err);
 	} else {
 		bank.cashAdded = parseInt(req.body.cashAdded);
 		bank.save();
-		console.log(bank);
+		console.log('This is the bank ' + bank);
 		//send back the cashAdded value to display on the page
-		res.json(cashAdded);
+		res.json(bank.cashAdded);
 		}
 	});
 });
-
 
 //Edit
 

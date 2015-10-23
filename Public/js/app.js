@@ -8,12 +8,12 @@ $(document).ready(function(){
 		var formData = $(this).serialize() + "&date=" + date;
 
   		// url, data, callback
-        $.post('/banks', formData, function(data) {
+        $.post('/api/banks', formData, function(data) {
 
           //New Bank Div
 	      var bank = "<li id = " + data._id + ">" +
-	                    "<div class ='well bank'>" +
-	                        "<h4>" + data.itemName + "</h4>" +
+	                    "<div class ='well bank-list-wrapper'>" +
+	                        "<h4><span class='glyphicon glyphicon-pencil'>" + data.itemName + "</span></h4>" +
 	                        "<p class='pull-right'>" + "Date Created: " + date + "</p>" +
 	                        "<div class = 'bank details'>" +
 	                            "<a href='#' class='btn primary' data-toggle='modal' data-target='.bs-example-modal-sm'>" +
@@ -35,7 +35,8 @@ $(document).ready(function(){
 	//Add Money to Bank
 	$('.bank-list').on('click', 'img', function(e){
 		e.preventDefault();
-		var bankId = ($(this).parent().parent().parent().attr('id'));
+		var bankId = $(this).closest('li').attr('id');
+		console.log(bankId);
 		$('#bankId').val(bankId);
 	});
 	
@@ -45,33 +46,39 @@ $(document).ready(function(){
 		var bankId = $('#bankId').val();
 
 	//Server Request
-	$.ajax({
-	    url: 'http://localhost:3000/banks/' + bankId, 
-	    type: 'PUT',
-	    data: {cashAdded: cashAdded},
-	    dataType: 'json'
-		}).done(function() {
-			console.log(data);
-		  alert( "success" );
-		})
-		  .fail(function() {
-		  alert( "error" );
-		})
-		  .always(function() {
-		  alert( "complete" );
+		$.ajax({
+		    url: '/api/banks/' + bankId, 
+		    type: 'PUT',
+		    data: {cashAdded: cashAdded},
+		    dataType: 'json'
+			}).done(function(data) {
+				console.log(data);
+			  alert( "success" );
+			})
+			  .fail(function() {
+			  alert( "error" );
+			});
 		});
-
-	});
 
 	//Delete Bank Function
 	$('.bank-list').on('click', '.delete', function(e){
 		e.preventDefault();
-		console.log('I was clicked');
+		// console.log('I was clicked');
 		// alert('Are you sure?');
+		var bankId = $(this).closest('li').attr('id');
+		var bank = $(this).closest('li');
 
-		var bankId = $(this).data().id;
-		console.log(bankId);
-
+	//Server delete request
+		$.ajax({
+	        type: "delete",
+	        url: '/api/banks/' + bankId
+	      	})
+	      	.done(function(data) {
+	        	$(bank).remove();
+	      	})
+	      	.fail(function(data) {
+	        	console.log("Failed to terminate bank.");
+    	});
 
 	});
 

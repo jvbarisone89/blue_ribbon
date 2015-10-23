@@ -66,10 +66,10 @@
                 
                      <% banks.forEach(function(bank) { %>
                        <li id = '<%=bank._id%>'>
-                            <div class ='well bank'> 
-                                <h4><%=bank.itemName%> </h4>
+                            <div class ='well bank-list-wrapper'> 
+                                <h4><%=bank.itemName%><span class='glyphicon glyphicon-pencil'></span></h4>
                                 <p class='pull-right'> Date Created: <%=bank.date%></p>
-                                <div class = 'bank details'>
+                                <div class = 'bank-details'>
                                     <a href='#' class='btn primary' data-toggle="modal" data-target=".bs-example-modal-sm">
                                     <img src = '/img/capPoint.png'/>
                                     </a>
