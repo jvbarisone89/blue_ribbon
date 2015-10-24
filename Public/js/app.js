@@ -20,7 +20,7 @@ $(document).ready(function(){
 	                            "<h5>Add Cash!</h5>" +
 	                            "<div class='progress'>" +
 	                                "<div class='progress-bar' style='width:" + data.progress + "%'  aria-valuenow='0'  aria-valuemin='0' aria-valuemax='100'>" + 
-	                                '$' + data.cash_added + '/' + "<span class='item_price'>" + data.price + "</div>" +
+	                                "$" + "<span class = 'cash_added'>" + data.cash_added + '</span>/' + "<span class='item_price'>" + data.price + "</span></div>" +
 	                            "</div>" +
 	                            "<a href='#' class='btn delete' data-id =" + data._id + ">Delete bank...</a>" +
 	                        "</div>" +
@@ -35,14 +35,18 @@ $(document).ready(function(){
 	    });
 
 	//Add Money to Bank
-	$('.bank-list-wrapper').on('click', 'img', function(e){
+	$('.bank-list').on('click', 'img', function(e){
 		e.preventDefault();
 		var bankId = $(this).closest('li').attr('id');
 		$('.bankId').val(bankId);
+		console.log(bankId);
+		console.log('Hello');
+		
 	});
 	
 	//Add Money Modal Submit
 	$('.cash-submit').on('click', function(e) {
+		console.log('I was clicked.');
 		//input value of how much user is entering into database
 		var cash_added = $('#cashValue').val();
 		//item cost - for updating the progress bar value
@@ -99,6 +103,7 @@ $(document).ready(function(){
 		var newProgressValue = 'width:' + percentValue + '%';
 		//Set the progress bar style to the new value
 		$(".progress-bar").attr("style", newProgressValue);
+		$('.cash_added').html(cash_added);
 	};
 
 	//Update progress bar value in server
