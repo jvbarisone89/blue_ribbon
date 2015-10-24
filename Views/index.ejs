@@ -67,8 +67,9 @@
                      <% banks.forEach(function(bank) { %>
                        <li id = '<%=bank._id%>'>
                             <div class ='well bank-list-wrapper'> 
-                                <h4><%=bank.itemName%><span class='glyphicon glyphicon-pencil'></span></h4>
-                                <p class='pull-right'> Date Created: <%=bank.date%></p>
+                                <h4><%=bank.itemName%></h4>
+                                <span class='glyphicon glyphicon-pencil'></span>
+                                <p class='pull-right'>Date Created: <%=bank.date%></p>
                                 <div class = 'bank-details'>
                                     <a href='#' class='btn primary' data-toggle="modal" data-target=".bs-example-modal-sm">
                                     <img src = '/img/capPoint.png'/>
@@ -95,7 +96,7 @@
             <div class="modal-dialog modal-sm form-group">
                 <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="hidden" id="bankId">
+                <input type="hidden" class="bankId">
                 <input type="text" id="cashValue" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0">
                 <span class="input-group-addon btn" id="cash-submit" type='submit'>Add!</span>
                 </div>

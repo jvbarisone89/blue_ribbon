@@ -13,7 +13,7 @@ $(document).ready(function(){
           //New Bank Div
 	      var bank = "<li id = " + data._id + ">" +
 	                    "<div class ='well bank-list-wrapper'>" +
-	                        "<h4><span class='glyphicon glyphicon-pencil'>" + data.itemName + "</span></h4>" +
+	                        "<h4>" + data.itemName + "</h4>" + "<span class='glyphicon glyphicon-pencil'></span>" +
 	                        "<p class='pull-right'>" + "Date Created: " + date + "</p>" +
 	                        "<div class = 'bank details'>" +
 	                            "<a href='#' class='btn primary' data-toggle='modal' data-target='.bs-example-modal-sm'>" +
@@ -29,31 +29,32 @@ $(document).ready(function(){
 	                "</li>";
 
           $('.bank-list').append(bank);
+
           });
+
 	    });
 
 	//Add Money to Bank
-	$('.bank-list').on('click', 'img', function(e){
+	$('.bank-list-wrapper').on('click', 'img', function(e){
 		e.preventDefault();
 		var bankId = $(this).closest('li').attr('id');
-		console.log(bankId);
-		$('#bankId').val(bankId);
+		$('.bankId').val(bankId);
 	});
 	
 	//Add Money Modal Submit
 	$('#cash-submit').on('click', function(e) {
-		var cashAdded = $('#cashValue').val();
-		var bankId = $('#bankId').val();
+		var cash_added = $('#cashValue').val();
+		$('#addCash-form')[0].reset();
+		var bankId = $('.bankId').val();
 
 	//Server Request
 		$.ajax({
 		    url: '/api/banks/' + bankId, 
 		    type: 'PUT',
-		    data: {cashAdded: cashAdded},
+		    data: {cash_added: cash_added},
 		    dataType: 'json'
 			}).done(function(data) {
-				console.log(data);
-			  alert( "success" );
+			  $('#addCash-form')[0].reset();
 			})
 			  .fail(function() {
 			  alert( "error" );
@@ -87,8 +88,6 @@ $(document).ready(function(){
 
 
 	//Post request to send amount into server for bank with that ID
-
-
 
 
 

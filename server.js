@@ -61,12 +61,14 @@ app.put('/api/banks/:id', function(req, res){
 	db.Bank.findById(req.params.id, function(err, bank){
 	if(err){
 		res.json(err);
+		console.log('This route didnt work!');
 	} else {
-		bank.cashAdded = parseInt(req.body.cashAdded);
+		bank.cash_added = parseInt(req.body.cash_added);
+		console.log(req.body);
 		bank.save();
 		console.log('This is the bank ' + bank);
 		//send back the cashAdded value to display on the page
-		res.json(bank.cashAdded);
+		res.json(bank.cash_added);
 		}
 	});
 });
