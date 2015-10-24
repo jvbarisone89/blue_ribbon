@@ -63,8 +63,7 @@
                 <h2 class="section-heading">Your Banks:</h2>
                 <!-- Bank Well -->
                 <ul class="bank-list">
-                
-                     <% banks.forEach(function(bank) { %>
+                    <% banks.forEach(function(bank) { %>
                        <li id = '<%=bank._id%>'>
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
@@ -76,14 +75,14 @@
                                     </a>
                                     <h5>Add Cash!</h5>
                                     <div class='progress'> 
-                                    <div class='bar' style='width: 50%'>$0/<%=bank.price%></div> 
+                                    <div class='progress-bar' style='width:<%=bank.progress%>%' aria-valuenow="70"
+                                    aria-valuemin="0" aria-valuemax="100">$<%=bank.cash_added%>/<span class='item_price'><%=bank.price%></span></div> 
                                     </div> 
                                 </div>
                                 <a href="#" class='btn delete'>Delete bank...</a>
                             </div> 
                         </li>
-                     <% }); %>
-
+                    <% }); %>
                 </ul>
             </div>
         </div>
@@ -98,7 +97,7 @@
                 <span class="input-group-addon">$</span>
                 <input type="hidden" class="bankId">
                 <input type="text" id="cashValue" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0">
-                <span class="input-group-addon btn" id="cash-submit" type='submit'>Add!</span>
+                <span class="input-group-addon btn cash-submit" type='submit'>Add!</span>
                 </div>
             </div>
         </form>

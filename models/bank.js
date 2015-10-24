@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var BankSchema = mongoose.Schema({
   itemName: {type: String, required: true},
   price: {type: Number, required: true},
-  cash_added: {type: Number, required: false, default:0},
+  cash_added: {type: Number, required: false, default: 0},
+  progress: {type: Number, required: false, default: 0},
   date: {type: String, require: false}
 });
 

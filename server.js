@@ -63,12 +63,13 @@ app.put('/api/banks/:id', function(req, res){
 		res.json(err);
 		console.log('This route didnt work!');
 	} else {
-		bank.cash_added = parseInt(req.body.cash_added);
+		bank.cash_added += parseInt(req.body.cash_added);
+		bank.progress += parseInt(req.body.progress);
 		console.log(req.body);
 		bank.save();
 		console.log('This is the bank ' + bank);
 		//send back the cashAdded value to display on the page
-		res.json(bank.cash_added);
+		res.json(bank);
 		}
 	});
 });
