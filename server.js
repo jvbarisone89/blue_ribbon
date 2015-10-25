@@ -74,17 +74,18 @@ app.put('/api/banks/:id', function(req, res){
 	});
 });
 
+//About
+app.get('/about', function(req,res){
+	res.render('about');
+});
+
+
+
+
 //Edit
 
 
-
-
-
 //New
-
-
-
-
 
 
 
