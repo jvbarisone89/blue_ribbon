@@ -45,11 +45,13 @@ $(document).ready(function(){
 	
 	//Add Money Modal Submit
 	$('.form-group').on('click', '.cash-submit', function(e) {
-		//input value of how much user is entering into database
 		var cash_added = $('#cashValue').val();
-		//item cost - for updating the progress bar value
 		var item_cost = $('.item_price').html();
+		console.log(item_cost);
 		var bankId = $('.bankId').val();
+		if (cash_added > item_cost){
+			return alert('Dont you know how progress bars work? That too much progress.');
+		}
 
 	//Server Request
 		$.ajax({
@@ -160,6 +162,6 @@ $(document).ready(function(){
 
 
 	//User Logout
-	
+
 
 }); 

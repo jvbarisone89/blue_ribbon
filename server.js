@@ -71,10 +71,13 @@ app.put('/api/banks/:id', function(req, res){
 		res.json(err);
 		console.log('This route didnt work!');
 	} else {
-		// bank.itemName = req.body.itemName;
+		var cash_added = parseInt(req.body.cash_added);
+		if (bank.cash_added + cash_added > bank.price){
+
+		}
+
+
 		bank.cash_added += parseInt(req.body.cash_added);
-		bank.progress += parseInt(req.body.progress);
-		console.log(req.body);
 		bank.save();
 		console.log('This is the bank ' + bank);
 		//send back the cashAdded value to display on the page
