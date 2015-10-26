@@ -11,6 +11,12 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/piggybank_app' // plug in the db name you've been using
+);
+
 //Routes
 
 
@@ -107,5 +113,6 @@ app.get('/signup', function(req,res){
 
 //Server Listener
 app.listen(3000, function() {
-  console.log("server running on port 3000");
+	app.listen(process.env.PORT || 3000);
+	console.log("server running on port 3000");
 });
