@@ -3,7 +3,7 @@
 
 <% include ./_header %>
 
-<body>
+<body class = 'index'>
     <!-- Navigation -->
     <% include ./_navbar %>
     
@@ -36,10 +36,11 @@
                 <!-- Bank Well -->
                 <ul class="bank-list">
                     <% banks.forEach(function(bank) { %>
-                       <li id = '<%=bank._id%>'>
+                       <li id = '<%=bank._id%>' class='bank-li'>
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
                                 <span class='glyphicon glyphicon-pencil'></span>
+                                <% include ./_itemUpdate %>
                                 <p class='pull-right'>Date Created: <%=bank.date%></p>
                                 <div class = 'bank-details'>
                                     <a href='#' class='btn primary' data-toggle="modal" data-target=".bs-example-modal-sm">
@@ -47,8 +48,10 @@
                                     </a>
                                     <h5>Add Cash!</h5>
                                     <div class='progress'> 
-                                    <div id = 'bar_id<%=bank._id%>' class='progress-bar' style='width:<%=bank.progress%>%' aria-valuenow="70"
-                                    aria-valuemin="0" aria-valuemax="100">$<span class='cash_added'><%=bank.cash_added%></span>/<span class='item_price'><%=bank.price%></span></div> 
+                                    <div id = 'bar_id<%=bank._id%>' class='progress-bar' style='width: 0' aria-valuenow="70"
+                                    aria-valuemin="0" aria-valuemax="100">$
+                                        <span class='cash_added'><%=bank.cash_added%></span>/
+                                        <span class='item_price'><%=bank.price%></span></div> 
                                     </div> 
                                 </div>
                                 <a href="#" class='btn delete'>Delete bank...</a>
@@ -75,6 +78,10 @@
         </form>
     </div>
     <!-- /.Add cash Modal -->
+
+
+    <!-- Sign Up Modal -->
+    
 
 
     <!-- Edit/Delete Modal  -->

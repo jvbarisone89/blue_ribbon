@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ./_header %>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="/">BlueRibbon</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/home">Home</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+
+   <!-- Sign Up Form -->
+   
+    <div class="signup_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 account-form-container">
+
+                        <h3>Create New Account</h3>
+	                    <form id="new-account-form">
+							<div class="form-group">
+
+							    <label for="email">Your Email</label>
+							    <input name="itemName" type="text" class="form-control" id="email" required>
+							    <label for="confirm-email">Confirm Email</label>
+							    <input name="itemName" type="text" class="form-control" id="confirm-email" required>
+								
+								<label for="pwd">Password</label>
+  								<input type="password" class="form-control" id="pwd">
+
+  								<label for="confirm-pwd">Confirm Password</label>
+  								<input type="password" class="form-control" id="confirm-pwd">
+
+							</div>
+
+							<input type ="submit" class="btn btn-default btn-lg" value="Create Account">
+						</form>
+                </div>
+            </div>
+        </div>
+        <!-- /.form-->
+    </div>
+
+
+</body>
+
+
+</html>

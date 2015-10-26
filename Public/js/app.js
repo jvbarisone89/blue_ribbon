@@ -29,46 +29,46 @@ $(document).ready(function(){
 
 	      //Append new bank to page
           $('.bank-list').append(bank);
+          $('#new-bank-form')[0].reset();
 
           });
 
 	    });
 
 	//Add Money to Bank
-	$('.bank-list').on('click', 'img', function(e){
+	$('.bank-list').on('click', '.btn', function(e){
 		e.preventDefault();
 		var bankId = $(this).closest('li').attr('id');
+		console.log(bankId);
 		$('.bankId').val(bankId);
 	});
 	
 	//Add Money Modal Submit
-	$('.cash-submit').on('click', function(e) {
+	$('.form-group').on('click', '.cash-submit', function(e) {
 		//input value of how much user is entering into database
 		var cash_added = $('#cashValue').val();
 		//item cost - for updating the progress bar value
 		var item_cost = $('.item_price').html();
-		var progress = (cash_added/item_cost)*100;
 		var bankId = $('.bankId').val();
-		$('#addCash-form')[0].reset();
 
 	//Server Request
 		$.ajax({
 		    url: '/api/banks/' + bankId, 
 		    type: 'PUT',
-		    data: {cash_added: cash_added,
-		    	  progress: progress}, 		
+		    data: {cash_added: cash_added}, 		
 		    dataType: 'json'
 			}).done(function(bank) {
-			  console.log(bank);
-			  updateBar(bank.cash_added, bank.price, bank._id);
+				$('#addCash-form')[0].reset();
+			 	console.log(bank);
+			  	progressUpdate(bank.cash_added, bank.price, bank._id);
 			})
-			  .fail(function() {
-			  alert( "error" );
+			  	.fail(function() {
+			  	alert( "error" );
 			});
-	});
+		});
 
 	//Update Progress bar function	
-	var updateBar = function(cash_added, item_cost, bank_id){
+	var progressUpdate = function(cash_added, item_cost, bank_id){
 		var this_bank = $('#bar_id' + bank_id);
 		//Remove current progress value from progress bar
 		this_bank.closest(".progress-bar").removeAttr( "style");
@@ -80,6 +80,23 @@ $(document).ready(function(){
 		this_bank.closest(".progress-bar").attr("style", newProgressValue);
 		this_bank.closest( ".progress-bar" ).find( ".cash_added" ).html(cash_added);
 	};
+
+	//On page load update progress bar value
+	var updateBar = function(){
+		var cash_added_array = $('.cash_added').map(function(){
+			return $(this).text();
+		});
+		var item_cost_array = $('.item_price').map(function(){
+			return $(this).text();
+		});	
+		$('.progress-bar').map(function(i){
+			var percentValue = (cash_added_array[i]/item_cost_array[i])*100;
+			var newProgressValue = 'width:' + percentValue + '%';
+			$(this).attr("style", newProgressValue);
+			});
+		};
+
+	updateBar();
 
 	//Delete Bank Function
 	$('.bank-list').on('click', '.delete', function(e){
@@ -101,17 +118,48 @@ $(document).ready(function(){
 
 	});
 
-	//Edit Item Name & Item Cost
+	//Edit Item Name 
+	$('.bank-list').on('click', 'h4', function() {
+		var bank_form = $(this).siblings('.item-update-form');
+		bank_form.toggle();
+		// $('.item-update-form').toggle();
+		var bankId = $(this).closest('li').attr('id');
+		$('.bankId').val(bankId);
+     });
 
-	
+	//Submit New Item Name to DOM
+	$('.form-group').on('click', '.itemUpdateSubmit', function(e){
+		var bank = $(this).closest('li');
+		var itemName = $('#itemUpdate').val();
+		var bankId = $('.bankId').val();
+		// $('.item-update-form')[0].reset();
+		$.ajax({
+	        type: "PUT",
+	        url: '/api/banks/' + bankId,
+	        data: {itemName: itemName},
+	        dataType: 'json'
+	      	})
+	      	.done(function(data) {
+	      		console.log(data);
+	        	//updateNameFunction
+	      	})
+	      	.fail(function(data) {
+	        	console.log("Failed to update bank.");
+    		});
+	});
+    
+    //Update item name in DOM
+    var updateName = function(new_name){
 
-	//Update progress bar value in server
-	
-	//User sign up
+    };
+
+	//User Sign-Up
+
 
 	//User Login
 
-	//User Logout
 
+	//User Logout
+	
 
 }); 

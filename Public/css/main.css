@@ -47,6 +47,33 @@ li {
     background-size: cover;
 }
 
+.home_page_header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(../img/create-account.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.signup_header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: left;
+    color: #000000;
+    background-size: cover;
+}
+
+
+.about-header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    color: #d87002;
+    background: url(../img/about.jpg) no-repeat center center;
+    background-size: cover;
+}
+
 .intro-message {
     position: relative;
     padding-top: 20%;
@@ -170,3 +197,24 @@ footer {
 .about-subtitle {
     margin-top: 20px;
 }
+
+.item-update-form {
+    display: none;
+}
+
+.account-form-container {
+    margin-top: 40px;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+    padding: 30px;
+} 
+
+.btn:hover {
+    background-color: #42c0db;
+}
+
+.btn {
+    background: #45cae6;
+}
+
+
+

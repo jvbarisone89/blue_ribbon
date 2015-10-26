@@ -13,7 +13,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Routes
 
-//Index
+
+//Home Page
+app.get('/home', function (req, res){
+		res.render('home');
+});
+
+
+
+//Profile
 app.get('/', function (req, res){
 	db.Bank.find({}, function(err, banks){
 		if(err){
@@ -63,6 +71,7 @@ app.put('/api/banks/:id', function(req, res){
 		res.json(err);
 		console.log('This route didnt work!');
 	} else {
+		// bank.itemName = req.body.itemName;
 		bank.cash_added += parseInt(req.body.cash_added);
 		bank.progress += parseInt(req.body.progress);
 		console.log(req.body);
@@ -77,9 +86,13 @@ app.put('/api/banks/:id', function(req, res){
 //About
 app.get('/about', function(req,res){
 	res.render('about');
+
 });
 
-
+//SignUp
+app.get('/signup', function(req,res){
+	res.render('signup');
+});
 
 
 //Edit
