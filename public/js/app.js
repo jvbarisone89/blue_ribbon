@@ -11,7 +11,7 @@ $(document).ready(function(){
           //New Bank Div
 	      var bank = "<li id = " + data._id + ">" +
 	                    "<div class ='well bank-list-wrapper'>" +
-	                        "<h4>" + data.itemName + "</h4>" + "<span class='glyphicon glyphicon-pencil'></span>" +
+	                        "<h4>" + data.itemName + "</h4>" +
 	                        "<p class='pull-right'>" + "Date Created: " + date + "</p>" +
 	                        "<div class = 'bank details'>" +
 	                            "<a href='#' class='btn primary' data-toggle='modal' data-target='.bs-example-modal-sm'>" +

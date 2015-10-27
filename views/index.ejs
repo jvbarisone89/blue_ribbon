@@ -8,11 +8,10 @@
     <% include ./_navbar %>
     
     <!-- Header -->
-    <a name="about"></a>
     <div class="intro-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-sm-12">
                     <div class="intro-message">
 
                         <h1>Blue Ribbon</h1>
@@ -27,26 +26,32 @@
         </div>
         <!-- /.container -->
     </div>
-
-    <!-- Banks container -->
+    
+    <!-- Container for all tasks -->
     <div class="container">
-        <div class="row">          
-            <div class="col-md-6 col-sm-offset-1">
-                <h2 class="section-heading">Your Banks:</h2>
+        <div class="row">  
+            <!-- container for non-completed tasks -->
+            <div class="col-sm-3">
+                <h2 class ='section-heading'>Failures:</h2>    
+                <ul class='failure-list'>
+                </ul>
+            </div>
+            <!-- Task container -->
+            <div class="col-sm-6">
+                <h2 class="bar-section-heading">Bars:</h2>
                 <!-- Bank Well -->
                 <ul class="bank-list">
                     <% banks.forEach(function(bank) { %>
                        <li id = '<%=bank._id%>' class='bank-li'>
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
-                                <span class='glyphicon glyphicon-pencil'></span>
                                 <% include ./_itemUpdate %>
                                 <p class='pull-right'>Date Created: <%=bank.date%></p>
                                 <div class = 'bank-details'>
                                     <a href='#' class='btn primary' data-toggle="modal" data-target=".bs-example-modal-sm">
                                     <img src = '/img/capPoint.png'/>
                                     </a>
-                                    <h5>Add Cash!</h5>
+                                    <h5>Update Progress</h5>
                                     <div class='progress'> 
                                     <div id = 'bar_id<%=bank._id%>' class='progress-bar' style='width: 0' aria-valuenow="70"
                                     aria-valuemin="0" aria-valuemax="100">$
@@ -60,9 +65,16 @@
                     <% }); %>
                 </ul>
             </div>
+            <!--  container for completed tasks -->
+            <div class="col-sm-3">
+                <h2 class ='section-heading'>Successes:</h2>    
+                <ul class='completed'>
+                </ul>
+            </div>
+            <!-- /completed -->
         </div>
     </div>
-    <!-- /.container -->
+    <!-- /all tasks -->
    
     <!-- Add cash Modal-->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

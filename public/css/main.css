@@ -39,12 +39,11 @@ li {
 }
 
 .intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
     background: url(../img/intro-bg.jpg) no-repeat center center;
     background-size: cover;
+
 }
 
 .home_page_header {
@@ -72,6 +71,7 @@ li {
     color: #d87002;
     background: url(../img/about.jpg) no-repeat center center;
     background-size: cover;
+    max-height: 100px;
 }
 
 .intro-message {
@@ -98,7 +98,11 @@ li {
 
 @media(max-width:767px) {
     .intro-message {
-        padding-bottom: 15%;
+        margin-top: -10%;
+        margin-bottom: -20%;
+        /*padding-bottom: 15%;*/
+        /*height: 200px;*/
+        /*clear: right;*/
     }
 
     .intro-message > h1 {
@@ -126,13 +130,6 @@ li {
     float: left;
     width: 200px;
     border-top: 3px solid #e7e7e7;
-}
-
-.banner {
-    padding: 100px 0;
-    color: #f8f8f8;
-    background: url(../img/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
 }
 
 .banner h2 {
@@ -216,5 +213,8 @@ footer {
     background: #45cae6;
 }
 
+.bar-section-heading {
+    text-align: center;
+}
 
 
