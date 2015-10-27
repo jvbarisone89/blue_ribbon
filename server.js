@@ -83,7 +83,7 @@ app.put('/api/banks/:id', function(req, res) {
 		console.log('This is the bank ' + bank);
 		//send back the cashAdded value to display on the page
 		res.json(bank);
-		}
+	}
 	});
 });
 
