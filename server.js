@@ -67,18 +67,17 @@ app.delete('/api/banks/:_id', function(req,res){
 });
 
 //Update
-app.put('/api/banks/:id', function(req, res){
+app.put('/api/banks/:id', function(req, res) {
 	db.Bank.findById(req.params.id, function(err, bank){
+	var cash_added = parseInt(req.body.cash_added);
 	if(err){
 		res.json(err);
 		console.log('This route didnt work!');
-	} else {
-		var cash_added = parseInt(req.body.cash_added);
-		if (bank.cash_added + cash_added > bank.price){
-
-		}
-
-
+	} else if ((bank.cash_added + cash_added) > bank.price){
+		res.json(err);
+		console.log('Too much cash added');	
+	} 
+	else {
 		bank.cash_added += parseInt(req.body.cash_added);
 		bank.save();
 		console.log('This is the bank ' + bank);
