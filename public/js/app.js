@@ -4,28 +4,33 @@ $(document).ready(function(){
 	$('#new-bank-form').on('submit', function(e){
 		e.preventDefault();
 		var date = new Date().toDateString();
+		var deadline = ($('#deadline').val());
+		var daysRemaining = getTimeRemaining(deadline).days;
+		console.log(daysRemaining);
 		//Serialize form data
 		var formData = $(this).serialize() + "&date=" + date;
+		console.log(formData);
   		// url, data, callback
         $.post('/api/banks', formData, function(data) {
           //New Bank Div
-	      var bank = "<li id = " + data._id + ">" +
-	                    "<div class ='well bank-list-wrapper'>" +
-	                        "<h4>" + data.itemName + "</h4>" +
-	                        "<p class='pull-right'>" + "Date Created: " + date + "</p>" +
-	                        "<div class = 'bank details'>" +
-	                            "<a href='#' class='btn primary' data-toggle='modal' data-target='.bs-example-modal-sm'>" +
-	                            "<img src = '/img/capPoint.png'/>" +
-	                            "</a>" +
-	                            "<h5>Add Cash!</h5>" +
-	                            "<div class='progress'>" +
-	                                "<div id = 'bar_id" + data._id + "'" + "class='progress-bar' style='width:" + data.progress + "%'  aria-valuenow='0'  aria-valuemin='0' aria-valuemax='100'>" + 
-	                                "$" + "<span class = 'cash_added'>" + data.cash_added + '</span>/' + "<span class='item_price'>" + data.price + "</span></div>" +
-	                            "</div>" +
-	                            "<a href='#' class='btn delete' data-id =" + data._id + ">Delete bank...</a>" +
-	                        "</div>" +
-	                    "</div>" +
-	                "</li>";
+	      var bank = "<li id = " + data._id + "class='bank-li'>" +
+                            "<div class ='well bank-list-wrapper'>" +  
+                                "<h4>" + data.itemName + "</h4>" +
+                                "<p>Days Remaining: " + daysRemaining + "</p>" +
+                                "<div class = 'bank-details'>" + 
+                                    "<h5 class='bar-title'>" + "Progress" + 
+                                        "<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
+                                        "<i class='ion ion-plus-circled'></i>" + 
+                                        "</a>" + 
+                                    "</h5>" +
+                                    "<div class='progress'>" + 
+                                    "<div id = 'bar_id'" + data._id + " class='progress-bar' style='width:'" + data.progress + "aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
+                                    "<span class='cash_added'>" + data.cash_added + "</span>"/
+                                    "<span class='item_price'>" + data.price + "</span></div></div>" + 
+                                    "<a href='#' data-id = " + data._id + "class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
+                                "</div>" +    
+                            "</div>" +
+                   	 "</li>";
 
 	      //Append new bank to page
           $('.bank-list').append(bank);
@@ -35,7 +40,7 @@ $(document).ready(function(){
 
 	    });
 
-	//Add Money to Bank
+	//Add Progress to Bar
 	$('.bank-list').on('click', '.btn', function(e){
 		e.preventDefault();
 		var bankId = $(this).closest('li').attr('id');
@@ -46,28 +51,40 @@ $(document).ready(function(){
 	//Add Money Modal Submit
 	$('.form-group').on('click', '.cash-submit', function(e) {
 		var cash_added = $('#cashValue').val();
-		var item_cost = $('.item_price').html();
-		console.log(item_cost);
+		var comment = $('.comment-form').val();
+		console.log(comment);
 		var bankId = $('.bankId').val();
-		if (cash_added > item_cost){
-			return alert('Dont you know how progress bars work? That too much progress.');
-		}
 
-	//Server Request
+	//Server Request for Comment 
 		$.ajax({
-		    url: '/api/banks/' + bankId, 
-		    type: 'PUT',
-		    data: {cash_added: cash_added}, 		
+		    url: '/api/banks/' + bankId + '/comments', 
+		    type: 'Post',
+		    data: {text: comment}, 		
 		    dataType: 'json'
-			}).done(function(bank) {
-				$('#addCash-form')[0].reset();
-			 	console.log(bank);
+			}).done(function(newComment) {
+				$('#addProgress-form')[0].reset();
+				console.log(newComment);
 			  	progressUpdate(bank.cash_added, bank.price, bank._id);
 			})
 			  	.fail(function() {
-			  	alert( "error" );
-			});
+			  	alert( "Error" );
 		});
+
+	//Server Request for Cash
+		// $.ajax({
+		//     url: '/api/banks/' + bankId, 
+		//     type: 'PUT',
+		//     data: {cash_added: cash_added}, 		
+		//     dataType: 'json'
+		// 	}).done(function(bank) {
+		// 		$('#addCash-form')[0].reset();
+		// 	 	console.log(bank);
+		// 	  	progressUpdate(bank.cash_added, bank.price, bank._id);
+		// 	})
+		// 	  	.fail(function() {
+		// 	  	alert( "error" );
+		// 	});
+	});
 
 	//Update Progress bar function	
 	var progressUpdate = function(cash_added, item_cost, bank_id){
@@ -117,7 +134,6 @@ $(document).ready(function(){
 	      	.fail(function(data) {
 	        	console.log("Failed to terminate bank.");
     	});
-
 	});
 
 	//Edit Item Name 
@@ -154,6 +170,22 @@ $(document).ready(function(){
     var updateName = function(new_name){
 
     };
+
+    //Display Deadline Days Remaining
+    function getTimeRemaining(endtime){
+	  var t = Date.parse(endtime) - Date.parse(new Date());
+	  var seconds = Math.floor( (t/1000) % 60 );
+	  var minutes = Math.floor( (t/1000/60) % 60 );
+	  var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	  var days = Math.floor( t/(1000*60*60*24) );
+	  return {
+	    'total': t,
+	    'days': days,
+	    'hours': hours,
+	    'minutes': minutes,
+	    'seconds': seconds
+  		};
+	}
 
 	//User Sign-Up
 

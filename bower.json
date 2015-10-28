@@ -1,0 +1,22 @@
+{
+  "name": "piggybank",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "jvbarisone@gmail.com <YOUR-EMAIL-ADDRESS>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/jvbarisone89/WDI-Project-1",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
+  }
+}

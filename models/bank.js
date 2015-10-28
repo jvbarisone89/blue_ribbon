@@ -1,15 +1,27 @@
+//Require mongoose
 var mongoose = require('mongoose');
 
-var BankSchema = mongoose.Schema({
-  itemName: {type: String, required: true},
-  price: {type: Number, required: true},
-  cash_added: {type: Number, required: false, default: 0},
-  date: {type: String, require: false}
+//Create Schemas
+
+//Comment Schema
+var CommentSchema = mongoose.Schema({
+  text: String
 });
 
-// create a model, making a copy of the schema
-// http://mongoosejs.com/docs/models.html
+//Bank Schema
+var BankSchema = mongoose.Schema({
+  itemName: {type: String, required: true},
+  price: {type: Number, required: false, default: 100},
+  cash_added: {type: Number, required: false, default: 0},
+  date: {type: String, required: false},
+  deadline: {type: String, required: true},
+  comments: [CommentSchema]
+});
+
+// create models, making copies of the schema
+
 var Bank = mongoose.model('Bank', BankSchema);
 
-// export this file
+// export these files
+
 module.exports = Bank;

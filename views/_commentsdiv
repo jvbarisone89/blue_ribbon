@@ -1,0 +1,10 @@
+<!-- Hidden Comments Div-->
+<div class='comment-list' display='hide'> 
+    <% banks.forEach(funtion(bank) { %>
+        <li>
+        <%= bank.comments.tex %>
+        <%= bank.commments.progressamount %>
+        </li>
+    <% }); %>
+</div> -->
+<!-- /Hidden Comments Div --> 

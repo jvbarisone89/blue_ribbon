@@ -6,60 +6,61 @@
 <body class = 'index'>
     <!-- Navigation -->
     <% include ./_navbar %>
-    
     <!-- Header -->
     <div class="intro-header">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="intro-message">
-
-                        <h1>Blue Ribbon</h1>
-                        <h3>A penny here, a penny there - save for what you want!</h3>
+                        <h1>Red Ribbon</h1>
+                        <h3>Visualize your deadlines</h3>
                         <hr class="intro-divider">
-
                         <% include ./_bankform %>
-
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.container -->
     </div>
-    
     <!-- Container for all tasks -->
     <div class="container">
         <div class="row">  
             <!-- container for non-completed tasks -->
             <div class="col-sm-3">
-                <h2 class ='section-heading'>Failures:</h2>    
+                <h2 class ='section-heading'>Failures</h2>    
                 <ul class='failure-list'>
                 </ul>
             </div>
             <!-- Task container -->
             <div class="col-sm-6">
-                <h2 class="bar-section-heading">Bars:</h2>
-                <!-- Bank Well -->
+                <h2 class="bar-section-heading">Bars</h2>
+                <!-- Todos Well -->
                 <ul class="bank-list">
+                    <!-- Todo Bars -->
                     <% banks.forEach(function(bank) { %>
                        <li id = '<%=bank._id%>' class='bank-li'>
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
                                 <% include ./_itemUpdate %>
-                                <p class='pull-right'>Date Created: <%=bank.date%></p>
+                                <p>Created: <%=bank.date%></p>
+                                <p>Days Remaining: </p>
                                 <div class = 'bank-details'>
-                                    <a href='#' class='btn primary' data-toggle="modal" data-target=".bs-example-modal-sm">
-                                    <img src = '/img/capPoint.png'/>
-                                    </a>
-                                    <h5>Update Progress</h5>
+                                    <h5 class='bar-title'>Progress
+                                        <a href='#' class='btn primary' data-toggle="modal" data-target="#basicModal">
+                                        <i class="ion ion-plus-circled"></i>
+                                        </a>
+                                    </h5>
+                                    <!-- Progress Bar -->
                                     <div class='progress'> 
                                     <div id = 'bar_id<%=bank._id%>' class='progress-bar' style='width: 0' aria-valuenow="70"
-                                    aria-valuemin="0" aria-valuemax="100">$
-                                        <span class='cash_added'><%=bank.cash_added%></span>/
-                                        <span class='item_price'><%=bank.price%></span></div> 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    <span class='cash_added'><%=bank.cash_added%></span>/
+                                    <span class='item_price'><%=bank.price%></span></div> 
                                     </div> 
-                                </div>
-                                <a href="#" class='btn delete'>Delete bank...</a>
+                                    <!-- /Progress Bar -->
+                                    <a href="#" class='btn delete'><i class="ion ion-ios-trash"></i></a>
+
+                                </div>    
                             </div> 
                         </li>
                     <% }); %>
@@ -67,7 +68,7 @@
             </div>
             <!--  container for completed tasks -->
             <div class="col-sm-3">
-                <h2 class ='section-heading'>Successes:</h2>    
+                <h2 class ='section-heading'>Successes</h2>    
                 <ul class='completed'>
                 </ul>
             </div>
@@ -76,30 +77,29 @@
     </div>
     <!-- /all tasks -->
    
-    <!-- Add cash Modal-->
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <form id='addCash-form'>
-            <div class="modal-dialog modal-sm form-group">
-                <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input type="hidden" class="bankId">
-                <input type="text" id="cashValue" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0">
-                <span class="input-group-addon btn cash-submit" type='submit'>Add!</span>
-                </div>
-            </div>
-        </form>
-    </div>
     <!-- /.Add cash Modal -->
 
-
-    <!-- Sign Up Modal -->
-    
-
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <form id='addProgress-form'>
+      <div class="modal-dialog form-group">
+        <div class="modal-content">
+          <div class="modal-header">
+            <input type="hidden" class="bankId">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Update Progress</h4>
+            <input type="text" id="cashValue" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0%">
+            <input type="text" name="comment" class="comment-form form-control" placeholder="comment">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary cash-submit">Save changes</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
 
     <!-- Edit/Delete Modal  -->
-
-
-    <!-- Edit/Delete Modal -->
 
 
     <!-- Footer -->
