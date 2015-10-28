@@ -64,26 +64,25 @@ $(document).ready(function(){
 			}).done(function(newComment) {
 				$('#addProgress-form')[0].reset();
 				console.log(newComment);
-			  	progressUpdate(bank.cash_added, bank.price, bank._id);
 			})
 			  	.fail(function() {
 			  	alert( "Error" );
 		});
 
 	//Server Request for Cash
-		// $.ajax({
-		//     url: '/api/banks/' + bankId, 
-		//     type: 'PUT',
-		//     data: {cash_added: cash_added}, 		
-		//     dataType: 'json'
-		// 	}).done(function(bank) {
-		// 		$('#addCash-form')[0].reset();
-		// 	 	console.log(bank);
-		// 	  	progressUpdate(bank.cash_added, bank.price, bank._id);
-		// 	})
-		// 	  	.fail(function() {
-		// 	  	alert( "error" );
-		// 	});
+		$.ajax({
+		    url: '/api/banks/' + bankId, 
+		    type: 'PUT',
+		    data: {cash_added: cash_added}, 		
+		    dataType: 'json'
+			}).done(function(bank) {
+				$('#addProgress-form')[0].reset();
+			 	console.log(bank);
+			  	progressUpdate(bank.cash_added, bank.price, bank._id);
+			})
+			  	.fail(function() {
+			  	alert( "error" );
+			});
 	});
 
 	//Update Progress bar function	
