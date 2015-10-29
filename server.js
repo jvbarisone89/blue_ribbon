@@ -104,23 +104,31 @@ app.delete('/api/banks/:_id', function(req,res){
 //Update Progress Amount
 app.put('/api/banks/:id', function(req, res) {
 	db.Bank.findById(req.params.id, function(err, bank){
-	var cash_added = parseInt(req.body.cash_added);
-	if(err){
-		res.json(err);
-		console.log('This route didnt work!');
-	} else if ((bank.cash_added + cash_added) > bank.price){
-		res.json(err);
-		console.log('Too much cash added');	
-	} 
-	else {
-		bank.cash_added += parseInt(req.body.cash_added);
-		bank.save();
-		console.log('This is the bank ' + bank);
-		//send back the cashAdded value to display on the page
-		res.json(bank);
-	}
+		var progress_add = parseInt(req.body.progress_added);
+		console.log(progress_add);
+		console.log(bank);
+		if(err){
+			res.json(err);
+			console.log('This route didnt work!');
+		} else if ((bank.progress_added + progress_add) > bank.price){
+			res.json(err);
+			console.log('Too much progress added');	
+		} else {
+			bank.progress_added += progress_add;
+			bank.itemName = req.body.itemName || bank.itemName;
+			bank.save(function(err, bank){
+				if (err) {
+					console.log(err);	
+				} else {
+					console.log(bank);
+					res.json(bank);
+				}
+			});
+		}
 	});
 });
+
+//Update Item Name
 
 //Login
 app.post('/login', function(req, res){
@@ -146,7 +154,6 @@ app.post('/api/banks/:bankId/comments', function (req, res) {
   console.log(req.body);
   // find list in db by id and add new todo
   console.log('This is the bankId ' + bankId);
-  console.log(newComment);
   db.Bank.findOne({_id: bankId}, function (err, foundBank) {
     foundBank.comments.push({text: newComment});
     // db.Bank.comments.push(newComment);
@@ -155,7 +162,6 @@ app.post('/api/banks/:bankId/comments', function (req, res) {
     });
   });
 });
-
 //New
 
 //Server Listener

@@ -13,10 +13,6 @@ h6 {
     text-align: center;
 }
 
-h2 {
-    text-decoration: underline;
-}
-
 h4 {
     display: inline;
 }
@@ -232,6 +228,10 @@ footer {
 }
 
 input.comment-form {
+    margin-top: 10px;
+}
+
+#new-account-btn {
     margin-top: 10px;
 }
 

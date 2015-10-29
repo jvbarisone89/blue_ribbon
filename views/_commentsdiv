@@ -1,9 +1,8 @@
 <!-- Hidden Comments Div-->
 <div class='comment-list' display='hide'> 
-    <% banks.forEach(funtion(bank) { %>
+    <% banks.forEach(function(bank) { %>
         <li>
-        <%= bank.comments.tex %>
-        <%= bank.commments.progressamount %>
+        <%= bank.comments.text %>
         </li>
     <% }); %>
 </div> -->

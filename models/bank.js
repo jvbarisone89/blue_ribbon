@@ -12,7 +12,7 @@ var CommentSchema = mongoose.Schema({
 var BankSchema = mongoose.Schema({
   itemName: {type: String, required: true},
   price: {type: Number, required: false, default: 100},
-  cash_added: {type: Number, required: false, default: 0},
+  progress_added: {type: Number, required: false, default: 0},
   date: {type: String, required: false},
   deadline: {type: String, required: true},
   comments: [CommentSchema]
