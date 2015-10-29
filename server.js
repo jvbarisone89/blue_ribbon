@@ -104,17 +104,15 @@ app.delete('/api/banks/:_id', function(req,res){
 //Update Progress Amount
 app.put('/api/banks/:id', function(req, res) {
 	db.Bank.findById(req.params.id, function(err, bank){
-		var progress_add = parseInt(req.body.progress_added);
-		console.log(progress_add);
-		console.log(bank);
+		var progress_added = parseInt(req.body.progress_added);
 		if(err){
 			res.json(err);
 			console.log('This route didnt work!');
-		} else if ((bank.progress_added + progress_add) > bank.price){
+		} else if ((bank.progress_added + progress_added) > bank.price){
 			res.json(err);
 			console.log('Too much progress added');	
 		} else {
-			bank.progress_added += progress_add;
+			bank.progress_added += progress_added;
 			bank.itemName = req.body.itemName || bank.itemName;
 			bank.save(function(err, bank){
 				if (err) {

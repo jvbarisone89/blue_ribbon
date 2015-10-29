@@ -13,24 +13,25 @@ $(document).ready(function(){
   		// url, data, callback
         $.post('/api/banks', formData, function(data) {
           //New Bank Div
-	      var bank = "<li id = " + data._id + "class='bank-li'>" +
-                            "<div class ='well bank-list-wrapper'>" +  
-                                "<h4>" + data.itemName + "</h4>" +
-                                "<p>Days Remaining: " + daysRemaining + "</p>" +
-                                "<div class = 'bank-details'>" + 
-                                    "<h5 class='bar-title'>" + "Progress" + 
-                                        "<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
-                                        "<i class='ion ion-plus-circled'></i>" + 
-                                        "</a>" + 
-                                    "</h5>" +
-                                    "<div class='progress'>" + 
-                                    "<div id = 'bar_id'" + data._id + " class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
-                                    "<span class='cash_added'>" + data.progress_added + "</span>" + "/" +
-                                    "<span class='item_price'>" + data.price + "</span></div></div>" + 
-                                    "<a href='#' data-id = " + data._id + "class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
-                                "</div>" +    
-                            "</div>" +
-                   	 "</li>";
+	    var bank = "<li id = '" + data._id + "' class='bank-li'>" +
+                        "<div class ='well bank-list-wrapper'>" +  
+                        "<h4>" + data.itemName + "</h4>" +
+							"<div class='item-update-form form-group' style='display:none;'>" + 
+								"<input type='text' class='form-control item-update-field'>" +
+								"<button type='button' class='btn btn-default itemUpdateSubmit'>" + "Update!" + 
+								"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
+                            		"<div class = 'bank-details'>" + 
+                                		"<h5 class='bar-title'>" + "Progress" + 
+                                    	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
+                                    	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
+                                	"<div class='progress'>" + 
+                                		"<div id = 'bar_id'" + data._id + " class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
+                                		"<span class='cash_added'>" + data.progress_added + "</span>" + "/" +
+                                		"<span class='item_price'>" + data.price + "</span></div></div>" + 
+                                "<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
+                            "</div>" +    
+                        "</div>" +
+                   	"</li>";
 
 	      //Append new bank to page
           $('.bank-list').append(bank);
@@ -74,7 +75,7 @@ $(document).ready(function(){
 		    data: {progress_added: progress_added}, 		
 		    dataType: 'json'
 			}).done(function(bank) {
-				console.log(bank);
+				// console.log(bank);
 			  	progressUpdate(bank.progress_added, bank.price, bank._id);
 			  	$('#addProgress-form')[0].reset();
 			})
@@ -114,77 +115,78 @@ $(document).ready(function(){
 
 	updateBar();
 
-	//Delete Bank Function
-	$('.bank-list').on('click', '.delete', function(e){
-		e.preventDefault();
-		console.log('I was clicked');
-		var bankId = $(this).closest('li').attr('id');
-		var bank = $(this).closest('li');
+//Delete Bank Function
+$('.bank-list').on('click', '.delete', function(e){
+	e.preventDefault();
+	console.log('I was clicked');
+	var bankId = $(this).closest('li').attr('id');
+	var bank = $(this).closest('li');
 
-	//Server delete request
-		$.ajax({
-	        type: "delete",
-	        url: '/api/banks/' + bankId
-	      	})
-	      	.done(function(data) {
-	        	$(bank).remove();
-	      	})
-	      	.fail(function(data) {
-	        	console.log("Failed to terminate bank.");
-    	});
+//Server delete request
+	$.ajax({
+        type: "delete",
+        url: '/api/banks/' + bankId
+      	})
+      	.done(function(data) {
+        	$(bank).remove();
+      	})
+      	.fail(function(data) {
+        	console.log("Failed to terminate bank.");
 	});
+});
 
-	//Edit Item Name 
-	$('.bank-list').on('click', 'h4', function() {
-		var bank_form = $(this).siblings('.item-update-form');
+//Edit Item Name 
+$('.bank-list').on('click', 'h4', function() {
+	console.log('I was clicked');
+	var bank_form = $(this).siblings('.item-update-form');
 		bank_form.toggle();
 		// $('.item-update-form').toggle();
-		var bankId = $(this).closest('li').attr('id');
+	var bankId = $(this).closest('li').attr('id');
 		$('.bankId').val(bankId);
-     });
+ });
 
-	//Submit New Item Name to DOM
-	$('.form-group').on('click', '.itemUpdateSubmit', function(e){
-		var previousName = $(this).closest('li').find('h4').text();
-		var newItemName = $('.item-update-field').val();
-		var bankId = $('.bankId').val();
-		var input = $(this);
+//Submit New Item Name to DOM
+$('.form-group').on('click', '.itemUpdateSubmit', function(e){
+	var previousName = $(this).closest('li').find('h4').text();
+	var newItemName = $('.item-update-field').val();
+	var bankId = $('.bankId').val();
+	var input = $(this);
 
-			if (newItemName === '' || null){
-		 	alert('Name input is empty');
-			} else {
-			$.ajax({
-		        type: "PUT",
-		        url: '/api/banks/' + bankId,
-		        data: {itemName: newItemName},
-		        dataType: 'json'
-		      	})
-		      	.done(function(data) {
-		      		console.log(data);
-		      		input.siblings().val("");
-		      		input.closest('li').find('h4').text(newItemName);
+		if (newItemName === '' || null){
+	 	alert('Name input is empty');
+		} else {
+		$.ajax({
+	        type: "PUT",
+	        url: '/api/banks/' + bankId,
+	        data: {itemName: newItemName},
+	        dataType: 'json'
 	      	})
-	      	.fail(function(data) {
-	        	console.log("Failed to update bank.");
-    		});
-		} 		
-	});
+	      	.done(function(data) {
+	      		console.log(data);
+	      		input.siblings().val("");
+	      		input.closest('li').find('h4').text(newItemName);
+      	})
+      	.fail(function(data) {
+        	console.log("Failed to update bank.");
+		});
+	} 		
+});
     
-    //Display Deadline Days Remaining
-    function getTimeRemaining(endtime){
-	  var t = Date.parse(endtime) - Date.parse(new Date());
-	  var seconds = Math.floor( (t/1000) % 60 );
-	  var minutes = Math.floor( (t/1000/60) % 60 );
-	  var hours = Math.floor( (t/(1000*60*60)) % 24 );
-	  var days = Math.floor( t/(1000*60*60*24) );
-	  return {
+//Display Deadline Days Remaining
+function getTimeRemaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+		return {
 	    'total': t,
 	    'days': days,
 	    'hours': hours,
 	    'minutes': minutes,
 	    'seconds': seconds
-  		};
-	}
+	};
+}
 
 	//User Sign-Up
 
@@ -193,6 +195,5 @@ $(document).ready(function(){
 
 
 	//User Logout
-
 
 }); 

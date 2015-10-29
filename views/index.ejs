@@ -27,13 +27,13 @@
         <div class="row">  
             <!-- container for non-completed tasks -->
             <div class="col-md-3">
-                <h2 class ='section-heading'>Failures</h2>    
+                <h2 class ='section-heading text-center'>Failures</h2>    
                 <ul class='failure-list'>
                 </ul>
             </div>
             <!-- Task container -->
             <div class="col-md-6">
-                <h2 class="bar-section-heading">Bars</h2>
+                <h2 class="bar-section-heading text-center">Bars</h2>
                 <!-- Todos Well -->
                 <ul class="bank-list">
                     <!-- Todo Bars -->
@@ -42,7 +42,7 @@
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
                                 <% include ./_itemUpdate %>
-                                <p>Days Remaining:</p>
+                                <span class='pull-right'>Days Remaining:</span>
                                 <div class = 'bank-details'>
                                     <h5 class='bar-title'>Progress
                                         <a href='#' class='btn primary' data-toggle="modal" data-target="#basicModal">
@@ -65,7 +65,7 @@
             </div>
             <!--  container for completed tasks -->
             <div class="col-md-3">
-                <h2 class ='section-heading'>Successes</h2>    
+                <h2 class ='section-heading text-center'>Successes</h2>    
                 <ul class='completed'>
                 </ul>
             </div>

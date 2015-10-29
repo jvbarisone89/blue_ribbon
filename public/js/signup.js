@@ -28,10 +28,9 @@ $(document).ready(function(){
 	//Logout
 	$('#logout').on('click', function(e){
 		e.preventDefault();
-
 		$.get('/logout', function(data){
 		console.log(data.msg);
-		window.location.href ='/login';
+		window.location.href ='/';
 		});
 	});
 

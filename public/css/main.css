@@ -53,9 +53,8 @@ input {
 .login-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
-    text-align: center;
-    color: #f8f8f8;
-    background: url(../img/login.png) no-repeat center center;
+    text-align: left;
+    color: #000000;
     background-size: cover;
 }
 
@@ -233,5 +232,20 @@ input.comment-form {
 
 #new-account-btn {
     margin-top: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+h2.bar-section-heading {
+    list-style: none;
+    margin-right: 0px !important;
+}
+
+ul.bank-list {
+    text-decoration: none;
+    list-style-type: none;
+    padding-left:0;
+    margin-right: 0px !important;
 }
 
