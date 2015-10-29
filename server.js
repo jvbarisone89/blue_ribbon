@@ -31,9 +31,14 @@ app.get('/signup', function(req,res){
 app.post('/users', function (req,res){
 	var user = req.body;
 	db.User.createSecure(user.email, user.password, function(err, user){
-	req.session.userId = user._id;
-	req.session.user = user;
-	res.json({user: user, msg: 'User created successfully'});
+		if (err){
+			console.log(err);
+			res.json({error: err, user: null, msg: 'THis doenst wokr'});
+		} else {
+			req.session.userId = user._id;
+			req.session.user = user;
+			res.json({user: user, msg: 'User created successfully'});
+		}
 	});
 });
 
