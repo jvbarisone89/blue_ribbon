@@ -25,11 +25,11 @@ $(document).ready(function(){
                                     	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
                                     	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
                                 	"<div class='progress'>" + 
-                                		"<div id = 'bar_id'" + data._id + " class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
-                                		"<span class='cash_added'>" + data.progress_added + "</span>" + "/" +
+                                		"<div id='bar_id" + data._id + "' class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
+                                		"<span class='progress_added'>" + data.progress_added + "</span>" + "/" +
                                 		"<span class='item_price'>" + data.price + "</span></div></div>" + 
-                                "<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
-                            "</div>" +    
+                                		"<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
+                            		"</div>" +    
                         "</div>" +
                    	"</li>";
 

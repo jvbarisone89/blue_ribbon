@@ -65,6 +65,7 @@ app.get('/', function (req, res){
 
 //Logged In Index
 app.get('/home', function (req, res){
+	console.log(req.session);
 	db.Bank.find({}, function(err, banks){
 		if(err){
 			console.log(err);
