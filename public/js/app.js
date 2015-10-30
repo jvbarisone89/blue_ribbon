@@ -11,35 +11,36 @@ $(document).ready(function(){
 		var formData = $(this).serialize() + "&date=" + date;
 		console.log(formData);
   		// url, data, callback
-        $.post('/api/banks', formData, function(data) {
+    $.post('/api/banks', formData, function(data) {
+    	location.reload();
           //New Bank Div
-	    var bank = "<li id = '" + data._id + "' class='bank-li'>" +
-                        "<div class ='well bank-list-wrapper'>" +  
-                        "<h4>" + data.itemName + "</h4>" +
-							"<div class='item-update-form form-group' style='display:none;'>" + 
-								"<input type='text' class='form-control item-update-field'>" +
-								"<button type='button' class='btn btn-default itemUpdateSubmit'>" + "Update!" + 
-								"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
-                            		"<div class = 'bank-details'>" + 
-                                		"<h5 class='bar-title'>" + "Progress" + 
-                                    	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
-                                    	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
-                                	"<div class='progress'>" + 
-                                		"<div id='bar_id" + data._id + "' class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
-                                		"<span class='progress_added'>" + data.progress_added + "</span>" + "/" +
-                                		"<span class='item_price'>" + data.price + "</span></div></div>" + 
-                                		"<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
-                            		"</div>" +    
-                        "</div>" +
-                   	"</li>";
+	    // var bank = "<li id = '" + data._id + "' class='bank-li'>" +
+     //                    "<div class ='well bank-list-wrapper'>" +  
+     //                    "<h4>" + data.itemName + "</h4>" +
+		// 		"<div class='item-update-form form-group' style='display:none;'>" + 
+		// 			"<input type='text' class='form-control item-update-field'>" +
+		// 			"<button type='button' class='btn btn-default itemUpdateSubmit'>" + "Update!" + 
+		// 			"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
+     //                        		"<div class = 'bank-details'>" + 
+     //                            		"<h5 class='bar-title'>" + "Progress" + 
+     //                                	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
+     //                                	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
+     //                            	"<div class='progress'>" + 
+     //                            		"<div id='bar_id" + data._id + "' class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
+     //                            		"<span class='progress_added'>" + data.progress_added + "</span>" + "/" +
+     //                            		"<span class='item_price'>" + data.price + "</span></div></div>" + 
+     //                            		"<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
+     //                        		"</div>" +    
+     //                    "</div>" +
+     //               	"</li>";
 
-	      //Append new bank to page
-          $('.bank-list').append(bank);
-          $('#new-bank-form')[0].reset();
+	    //   //Append new bank to page
+     //      $('.bank-list').append(bank);
+     //      $('#new-bank-form')[0].reset();
 
-          });
+     });
 
-	    });
+	});
 
 	//Add Progress to Bar
 	$('.bank-list').on('click', '.btn', function(e){
@@ -171,6 +172,19 @@ $('.form-group').on('click', '.itemUpdateSubmit', function(e){
 		});
 	} 		
 });
+
+//Display Comments 
+$('.show-comments').on('click', function(){
+	var id = $(this).data('bank-id');
+	$('#comment-bank-' + id).removeClass('hide');
+});
+
+
+
+
+
+
+
     
 //Display Deadline Days Remaining
 function getTimeRemaining(endtime){
@@ -195,5 +209,6 @@ function getTimeRemaining(endtime){
 
 
 	//User Logout
+
 
 }); 

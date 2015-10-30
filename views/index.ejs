@@ -42,7 +42,7 @@
                             <div class ='well bank-list-wrapper'> 
                                 <h4><%=bank.itemName%></h4>
                                 <% include ./_itemUpdate %>
-                                <span class='pull-right'>Days Remaining:</span>
+                                <span class='pull-right'>Deadline: <%=bank.deadline%></span>
                                 <div class = 'bank-details'>
                                     <h5 class='bar-title'>Progress
                                         <a href='#' class='btn primary' data-toggle="modal" data-target="#basicModal">
@@ -57,17 +57,20 @@
                                     </div> 
                                     <!-- /Progress Bar -->
                                     <div class='row'>
-                                        <div class='col-xs-1 col-xs-offset-11'>
+                                       <div class='col-xs-4'>
+                                            <button data-bank-id='<%=bank._id%>' class='btn btn-primary btn-sm show-comments'>Comments</button>
+                                        </div>
+                                        <div class='col-xs-1 col-xs-offset-7'>
                                             <a href="#" class='btn delete'><i class="ion ion-ios-trash"></i></a>  
                                         </div>
                                     </div>
-                                </div>    
+                                </div>  
+                                <div id='comment-bank-<%=bank._id%>' class='comments-bank hide'>
+                                    <% bank.comments.forEach(function(comment){ %>
+                                        <p><%= comment.text %></p>
+                                    <% }) %>
+                                </div>  
                             </div> 
-                            <div class='comments-bank'>
-                                <% bank.comments.forEach(function(comment){ %>
-                                    <p><%= comment.text %></p>
-                                <% }) %>
-                            </div>
                         </li>
                     <% }); %>
                 </ul>
