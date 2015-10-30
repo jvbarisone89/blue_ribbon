@@ -181,11 +181,6 @@ $('.show-comments').on('click', function(){
 
 
 
-
-
-
-
-    
 //Display Deadline Days Remaining
 function getTimeRemaining(endtime){
 	var t = Date.parse(endtime) - Date.parse(new Date());

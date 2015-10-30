@@ -44,6 +44,7 @@ app.post('/users', function (req,res){
 
 //Check Auth
 app.get('/current-user',function (req,res){
+	console.log(req.session);
 	res.json({user: req.session.user});
 });
 
@@ -55,6 +56,7 @@ app.get('/login', function (req,res){
 //Logout
 app.get('/logout', function(req, res){
 	req.session.userId = null;
+	req.session.user = null;
 	res.redirect('/login');
 });
 
@@ -70,7 +72,7 @@ app.get('/home', function (req, res){
 		if(err){
 			console.log(err);
 		} else {
-			res.render('index', {banks: banks});
+			res.render('index', {banks: banks, userId: req.session.userId});
 		}
 	});
 });

@@ -8,9 +8,10 @@ $(document).ready(function(){
 				$('.log-out').show();
 			} else {
 				$('.sign-up').show();
-				$('.log-out').hide();			}
-			});
-		}
+				$('.log-out').hide();	
+			}
+		});
+	}
 
 	checkAuth();
 
@@ -31,8 +32,8 @@ $(document).ready(function(){
 	$('#logout').on('click', function(e){
 		e.preventDefault();
 		$.get('/logout', function(data){
-		console.log(data.msg);
-		window.location.href ='/';
+			console.log(data.msg);
+			window.location.href ='/logout';
 		});
 	});
 

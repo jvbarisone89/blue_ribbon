@@ -14,7 +14,11 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class='sign-up'>
-                    <a href="/login">Login</a>
+                    <% if(userId) { %>
+                        <a href="/logout">Logout</a>
+                    <% } else { %>
+                        <a href="/login">Login</a>
+                    <% } %>
                 </li>
                 <li class='sign-up'>
                     <a href="/signup">Signup</a>

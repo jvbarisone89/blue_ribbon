@@ -8,4 +8,4 @@ The new todos are stored in a 'bank' model that includes an embedded comments mo
 
 Libraries used: Node.js, express, mongodb, jquery.
 
-Wishlist: An additional progress bar that acts as a timer and initiates when a user creates a new todo. Comments that are stored with progress updates. 
+Wishlist: An additional progress bar that acts as a timer and initiates when a user creates a new todo. Login/logout function.
