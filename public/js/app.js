@@ -14,29 +14,28 @@ $(document).ready(function(){
     $.post('/api/banks', formData, function(data) {
     	location.reload();
           //New Bank Div
-	    // var bank = "<li id = '" + data._id + "' class='bank-li'>" +
-     //                    "<div class ='well bank-list-wrapper'>" +  
-     //                    "<h4>" + data.itemName + "</h4>" +
+	  // var bank = "<li id = '" + data._id + "' class='bank-li'>" +
+    //                    "<div class ='well bank-list-wrapper'>" +  
+    //                    "<h4>" + data.itemName + "</h4>" +
 		// 		"<div class='item-update-form form-group' style='display:none;'>" + 
 		// 			"<input type='text' class='form-control item-update-field'>" +
 		// 			"<button type='button' class='btn btn-default itemUpdateSubmit'>" + "Update!" + 
-	// 			"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
-     //                        		"<div class = 'bank-details'>" + 
-     //                            		"<h5 class='bar-title'>" + "Progress" + 
-     //                                	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
-     //                                	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
-     //                            	"<div class='progress'>" + 
-     //                            		"<div id='bar_id" + data._id + "' class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
-     //                            		"<span class='progress_added'>" + data.progress_added + "</span>" + "/" +
-     //                            		"<span class='item_price'>" + data.price + "</span></div></div>" + 
-     //                            		"<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
-     //                        		"</div>" +    
-     //                    "</div>" +
-     //               	"</li>";
-
-	 //   //Append new bank to page
-     //      $('.bank-list').append(bank);
-     //      $('#new-bank-form')[0].reset();
+		// 			"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
+    //                        		"<div class = 'bank-details'>" + 
+    //                            		"<h5 class='bar-title'>" + "Progress" + 
+    //                                	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
+    //                                	"<i class='ion ion-plus-circled'></i>" + "</a>" + "</h5>" +
+    //                            	"<div class='progress'>" + 
+    //                            		"<div id='bar_id" + data._id + "' class='progress-bar' style='width:" + data.progress_added + "'aria-valuenow='70' aria-valuemin='0' aria-valuemax='100'>" +
+    //                            		"<span class='progress_added'>" + data.progress_added + "</span>" + "/" +
+    //                            		"<span class='item_price'>" + data.price + "</span></div></div>" + 
+    //                            		"<a href='#' data-id = '" + data._id + "' class='btn delete'><i class='ion ion-ios-trash'></i></a>" +
+    //                        		"</div>" +    
+    //                    "</div>" +
+    //               	"</li>";
+	 	//   //Append new bank to page
+    //      $('.bank-list').append(bank);
+    //      $('#new-bank-form')[0].reset();
 
      });
 
@@ -71,20 +70,20 @@ $(document).ready(function(){
 		});
 
 	//Server Request to add Progress
-		$.ajax({
-		    url: '/api/banks/' + bankId, 
-		    type: 'Put',
-		    data: {progress_added: progress_added}, 		
-		    dataType: 'json'
-			}).done(function(bank) {
-				// console.log(bank);
-			  	progressUpdate(bank.progress_added, bank.price, bank._id);
-			  	$('#addProgress-form')[0].reset();
-			})
-			  	.fail(function() {
-			  	alert( "error" );
-			});
+	$.ajax({
+	    url: '/api/banks/' + bankId, 
+	    type: 'Put',
+	    data: {progress_added: progress_added}, 		
+	    dataType: 'json'
+		}).done(function(bank) {
+			// console.log(bank);
+		  	progressUpdate(bank.progress_added, bank.price, bank._id);
+		  	$('#addProgress-form')[0].reset();
+		})
+		  	.fail(function() {
+		  	alert( "error" );
 		});
+	});
 
 	//Update Progress bar function	
 	var progressUpdate = function(progress_added, item_cost, bank_id){
@@ -134,25 +133,25 @@ $('.bank-list').on('click', '.delete', function(e){
       	})
       	.fail(function(data) {
         	console.log("Failed to terminate bank.");
+		});
 	});
-});
 
 //Edit Item Name 
 $('.bank-list').on('click', 'h4', function() {
 	console.log('I was clicked');
-	var bank_form = $(this).siblings('.item-update-form');
+		var bank_form = $(this).siblings('.item-update-form');
 		bank_form.toggle();
 		// $('.item-update-form').toggle();
-	var bankId = $(this).closest('li').attr('id');
+		var bankId = $(this).closest('li').attr('id');
 		$('.bankId').val(bankId);
  });
 
 //Submit New Item Name to DOM
-$('.form-group').on('click', '.itemUpdateSubmit', function(e){
-	var previousName = $(this).closest('li').find('h4').text();
-	var newItemName = $('.item-update-field').val();
-	var bankId = $('.bankId').val();
-	var input = $(this);
+	$('.form-group').on('click', '.itemUpdateSubmit', function(e){
+		var previousName = $(this).closest('li').find('h4').text();
+		var newItemName = $('.item-update-field').val();
+		var bankId = $('.bankId').val();
+		var input = $(this);
 
 		if (newItemName === '' || null){
 	 	alert('Name input is empty');
@@ -170,9 +169,9 @@ $('.form-group').on('click', '.itemUpdateSubmit', function(e){
       	})
       	.fail(function(data) {
         	console.log("Failed to update bank.");
-		});
-	} 		
-});
+			});
+		} 		
+	});
 
 //Display Comments 
 $('.show-comments').on('click', function(){
