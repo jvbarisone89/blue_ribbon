@@ -65,7 +65,7 @@
                               </div>
                           </div>
                       </div>  
-                      <div id='comment-bank-<%=bank._id%>' class='comments-bank hide'>
+                      <div id='comment-bank-<%=bank._id%>' class='comments-bank' style='display:none;'>
                           <% bank.comments.forEach(function(comment){ %>
                               <p><%= comment.text %></p>
                           <% }) %>

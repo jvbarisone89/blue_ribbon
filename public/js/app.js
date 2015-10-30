@@ -20,7 +20,7 @@ $(document).ready(function(){
 		// 		"<div class='item-update-form form-group' style='display:none;'>" + 
 		// 			"<input type='text' class='form-control item-update-field'>" +
 		// 			"<button type='button' class='btn btn-default itemUpdateSubmit'>" + "Update!" + 
-		// 			"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
+	// 			"</button></div>" + "<span class='pull-right'>Days Remaining:" + daysRemaining + "</span>" +
      //                        		"<div class = 'bank-details'>" + 
      //                            		"<h5 class='bar-title'>" + "Progress" + 
      //                                	"<a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'>" +
@@ -34,7 +34,7 @@ $(document).ready(function(){
      //                    "</div>" +
      //               	"</li>";
 
-	    //   //Append new bank to page
+	 //   //Append new bank to page
      //      $('.bank-list').append(bank);
      //      $('#new-bank-form')[0].reset();
 
@@ -64,6 +64,7 @@ $(document).ready(function(){
 		    dataType: 'json'
 			}).done(function(newComment) {
 				$('#addProgress-form')[0].reset();
+				$('.comments-bank').append('<p>'+ comment + '</p>');
 			})
 			  	.fail(function() {
 			  	alert( "Error" );
@@ -176,9 +177,8 @@ $('.form-group').on('click', '.itemUpdateSubmit', function(e){
 //Display Comments 
 $('.show-comments').on('click', function(){
 	var id = $(this).data('bank-id');
-	$('#comment-bank-' + id).removeClass('hide');
+	$('#comment-bank-' + id).toggle();
 });
-
 
 
 //Display Deadline Days Remaining
