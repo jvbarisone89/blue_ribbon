@@ -14,6 +14,8 @@ $(document).ready(function(){
 
 	checkAuth();
 
+	$('#login-form').validate();
+
 	//Sign Up
 	$('#signup-form').on('submit', function(e){
 		e.preventDefault();

@@ -149,7 +149,6 @@ app.post('/login', function(req, res){
 });
 
 //Add Comment
-// create comment embedded in list
 app.post('/api/banks/:bankId/comments', function (req, res) {
   // set the value of the list id
   var bankId = req.params.bankId;
@@ -166,7 +165,6 @@ app.post('/api/banks/:bankId/comments', function (req, res) {
     });
   });
 });
-//New
 
 //Server Listener
 app.listen(process.env.PORT || 3000, function() {

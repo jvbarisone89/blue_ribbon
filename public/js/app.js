@@ -56,17 +56,17 @@ $(document).ready(function(){
 		var bankId = $('.bankId').val();
 	
 	//Server Request to add Comment 
-		// $.ajax({
-		//     url: '/api/banks/' + bankId + '/comments', 
-		//     type: 'Post',
-		//     data: {text: comment}, 		
-		//     dataType: 'json'
-		// 	}).done(function(newComment) {
-		// 		$('#addProgress-form')[0].reset();
-		// 	})
-		// 	  	.fail(function() {
-		// 	  	alert( "Error" );
-		// });
+		$.ajax({
+		    url: '/api/banks/' + bankId + '/comments', 
+		    type: 'Post',
+		    data: {text: comment}, 		
+		    dataType: 'json'
+			}).done(function(newComment) {
+				$('#addProgress-form')[0].reset();
+			})
+			  	.fail(function() {
+			  	alert( "Error" );
+		});
 
 	//Server Request to add Progress
 		$.ajax({

@@ -56,9 +56,18 @@
                                         </div> 
                                     </div> 
                                     <!-- /Progress Bar -->
-                                    <a href="#" class='btn delete'><i class="ion ion-ios-trash"></i></a>
+                                    <div class='row'>
+                                        <div class='col-xs-1 col-xs-offset-11'>
+                                            <a href="#" class='btn delete'><i class="ion ion-ios-trash"></i></a>  
+                                        </div>
+                                    </div>
                                 </div>    
                             </div> 
+                            <div class='comments-bank'>
+                                <% bank.comments.forEach(function(comment){ %>
+                                    <p><%= comment.text %></p>
+                                <% }) %>
+                            </div>
                         </li>
                     <% }); %>
                 </ul>
