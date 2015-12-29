@@ -9,12 +9,12 @@ h6 {
     font-weight: 700;
 }
 
-.bar-title {
-    text-align: center;
+body {
+    padding-top: 65px; 
 }
 
-h4 {
-    display: inline;
+.bar-title {
+    text-align: center;
 }
 
 li {
@@ -24,29 +24,21 @@ li {
 input {
     display: inline-block;
 }
+
 .topnav {
     font-size: 14px; 
 }
 
-.lead {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.intro-header {
+.bankDetails {
     text-align: center;
-    color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
-    background-size: cover;
-
 }
+
 
 .home_page_header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/home.png) no-repeat center center;
     background-size: cover;
 }
 
@@ -128,41 +120,6 @@ input {
     margin-bottom: 30px;
 }
 
-.section-heading-spacer {
-    float: left;
-    width: 200px;
-    border-top: 3px solid #e7e7e7;
-}
-
-.banner h2 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 3em;
-}
-
-.banner ul {
-    margin-bottom: 0;
-}
-
-.banner-social-buttons {
-    float: right;
-    margin-top: 0;
-}
-
-@media(max-width:1199px) {
-    ul.banner-social-buttons {
-        float: left;
-        margin-top: 15px;
-    }
-}
-
-@media(max-width:767px) {
-    .banner h2 {
-        margin: 0;
-        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-        font-size: 3em;
-    }
-
     ul.banner-social-buttons > li {
         display: block;
         margin-bottom: 20px;
@@ -181,6 +138,10 @@ footer {
 
 .progress {
     text-align: center;
+}
+
+.progress-bar {
+    color: black;
 }
 
 #addCash-form {
@@ -211,22 +172,7 @@ footer {
     text-align: left;
 }
 
-.ion-plus-circled {
-    font-size: 25px;
-    display: inline;
-}
-
-.ion-ios-trash {
-    font-size: 25px;
-    display: inline
-}
-
-
 #new-account-btn {
-    margin-top: 10px;
-}
-
-input.comment-form {
     margin-top: 10px;
 }
 
@@ -237,6 +183,7 @@ input.comment-form {
 h2 {
     text-align: center;
 }
+
 h2.bar-section-heading {
     list-style: none;
     margin-right: 0px !important;
@@ -248,4 +195,3 @@ ul.bank-list {
     padding-left:0;
     margin-right: 0px !important;
 }
-

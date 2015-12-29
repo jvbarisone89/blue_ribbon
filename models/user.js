@@ -1,29 +1,30 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   bcrypt = require('bcrypt');
+var bank  = require('./bank.js');
 
 var userSchema = new Schema({
+  username: { type: String },
   email: { type: String,
             required: true,
             unique: true
           },
-  passwordDigest: String
+  passwordDigest: String,
+  banks: [{ type: Schema.Types.ObjectId, ref: 'Bank' }]
 });
 
 // use form data to create db user, with a hashed and salted password
-userSchema.statics.createSecure = function (email, password, callback) {
+userSchema.statics.createSecure = function (username, email, password, callback) {
   // `this` references our User model
   // store it in variable `UserModel` because `this` changes context in nested callbacks
-
   var UserModel = this;
-
   // hash password user enters at sign up
   bcrypt.genSalt(function (err, salt) {
     console.log('salt: ', salt);  // changes every time
     bcrypt.hash(password, salt, function (err, hash) {
-
       // create the new user (save to db) with hashed password
       UserModel.create({
+        username: username,
         email: email,
         passwordDigest: hash
       }, callback);
@@ -35,10 +36,8 @@ userSchema.statics.createSecure = function (email, password, callback) {
 userSchema.statics.authenticate = function (email, password, callback) {
   // find user by email entered at log in
   // remember, this is the User Model
-
   this.findOne({email: email}, function (err, foundUser) {
     console.log(foundUser);
-
     // throw error if can't find user
     if (!foundUser) {
       console.log('No user with email ' + email);
@@ -58,7 +57,7 @@ userSchema.methods.checkPassword = function (password) {
   return bcrypt.compareSync(password, this.passwordDigest);
 };
 
-var User = mongoose.model('User', userSchema);
 
+var User = mongoose.model('User', userSchema);
 // export user model
 module.exports = User;

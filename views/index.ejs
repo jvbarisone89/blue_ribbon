@@ -1,115 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <% include ./_header %>
-
-<body class = 'index'>
-  <!-- Navigation -->
-  <% include ./_navbar %>
-  <!-- Header -->
-  <div class="intro-header">
-      <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="intro-message">
-                    <h1>Red Ribbon</h1>
-                    <h3>Visualize your deadlines</h3>
-                    <hr class="intro-divider">
-                    <% include ./_bankform %>
-                </div>
-            </div>
-        </div>
-      </div>
-      <!-- /.container -->
-  </div>
-  <!-- Container for all tasks -->
-  <div class="container">
-      <div class="row">  
-        <!-- container for non-completed tasks -->
-        <div class="col-md-3">
-            <h2 class ='section-heading text-center'>Failures</h2>    
-            <ul class='failure-list'>
-            </ul>
-        </div>
-        <!-- Task container -->
+  <body class = 'index'>
+    <% include ./_navbar %>
+    <div class="container">
+      <div class="row">
         <div class="col-md-6">
-          <h2 class="bar-section-heading text-center">Bars</h2>
+          <div class="row">
+            <div class="col-md-12">
+              <h1>What Are You Saving For?</h1>
+              <% include ./_bankform %>
+            </div>
+          </div>
+<!--           <div class="row">
+            <div class="col-md-12">
+              <h1>Your Account Details:</h1>
+            </div>
+          </div> -->
+        </div>
+        <div id="banksDiv" class="col-md-6" style="height: 600px; overflow-y:scroll;">
+          <h1 id="banks-header" class="text-center"><%= username %>'s Banks:</h1>
           <!-- Todos Well -->
-          <ul class="bank-list">
-          <!-- Todo Bars -->
-          <% banks.forEach(function(bank) { %>
+          <ul class="bankList">
+          <!-- Banks -->
+            <% banks.forEach(function(bank) { %>
              <li id = '<%=bank._id%>' class='bank-li'>
-                  <div class ='well bank-list-wrapper'> 
-                      <h4><%=bank.itemName%></h4>
-                      <% include ./_itemUpdate %>
-                      <span class='pull-right'>Deadline: <%=bank.deadline%></span>
-                      <div class = 'bank-details'>
-                          <h5 class='bar-title'>Progress
-                              <a href='#' class='btn primary' data-toggle="modal" data-target="#basicModal">
-                              <i class="ion ion-plus-circled"></i>
-                              </a>
-                          </h5>
-                          <!-- Progress Bar -->
-                          <div class='progress'> 
-                              <div id = 'bar_id<%=bank._id%>' class='progress-bar'>
-                              <span class='progress_added'><%=bank.progress_added%></span>/<span class='item_price'><%=bank.price%></span>
-                              </div> 
-                          </div> 
-                          <!-- /Progress Bar -->
-                          <div class='row'>
-                             <div class='col-xs-4'>
-                                  <button data-bank-id='<%=bank._id%>' class='btn btn-primary btn-sm show-comments'>Comments</button>
-                              </div>
-                              <div class='col-xs-1 col-xs-offset-7'>
-                                  <a href="#" class='btn delete'><i class="ion ion-ios-trash"></i></a>  
-                              </div>
-                          </div>
-                      </div>  
-                      <div id='comment-bank-<%=bank._id%>' class='comments-bank' style='display:none;'>
-                          <% bank.comments.forEach(function(comment){ %>
-                              <p><%= comment.text %></p>
-                          <% }) %>
-                      </div>  
-                  </div> 
+                <div class ='well bank-list-wrapper'> 
+                    <i class="ion-close-round pull-right delete"></i>
+                    <h4>Item: <%=bank.name%></h4>
+                    <h4>Price: $<%=bank.cost%></h4>
+                    <h4>Cash Added: $<span id='CashId<%=bank._id%>'><%=bank.cash_added%></span></h4>
+                    <div class = 'bankDetails'>
+                      <!-- Progress Bar -->
+                      <div class='progress'> 
+                        <div id = 'ProgressId<%=bank._id %>' class='progress-bar' role="progressbar" style="width:<%=(bank.cash_added/bank.cost)*100%>">
+                        </div> 
+                      </div> 
+                      <a href='#' class='btn primary' data-toggle="modal" data-target="#basicModal">
+                        <i class="ion ion-plus-circled" style="font-size: 40px"></i>
+                      </a>
+                      <% include ./_addprogressmodal %>
+                    </div>
+                </div>
               </li>
-          <% }); %>
-          </ul>
-        </div>
-        <!--  container for completed tasks -->
-        <div class="col-md-3">
-          <h2 class ='section-heading text-center'>Successes</h2>    
-          <ul class='completed'>
-          </ul>
-        </div>
-        <!-- /completed -->
-      </div>
-  </div>
-  <!-- /all tasks -->
- 
-  <!-- /.Add progress Modal -->
-  <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <form id='addProgress-form'>
-      <div class="modal-dialog form-group">
-        <div class="modal-content">
-          <div class="modal-header">
-            <input type="hidden" class="bankId">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Update Progress</h4>
-            <input type="text" id="cashValue" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0%">
-            <input type="text" name="comment" class="comment-form form-control" placeholder="comment">
+              <% }); %>
+            </ul>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary progress-submit">Save changes</button>
-          </div>
-        </div>
       </div>
-    </form>
-  </div>
-
-  <!-- Edit/Delete Modal  -->
-
-
-  <!-- Footer -->
-</body>
+    </div>
+  </body>
 </html>

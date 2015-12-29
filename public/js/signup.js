@@ -3,10 +3,12 @@ $(document).ready(function(){
 	function checkAuth(){
 		$.get('/current-user', function(data){
 			console.log(data);
-			if (data.user){	
+			if (data){	
+				$('.log-in').hide();
 				$('.sign-up').hide();
 				$('.log-out').show();
 			} else {
+				$('.log-in').show();	
 				$('.sign-up').show();
 				$('.log-out').hide();	
 			}
@@ -21,10 +23,19 @@ $(document).ready(function(){
 	$('#signup-form').on('submit', function(e){
 		e.preventDefault();
 		var user = ($(this).serialize());
-
-		$.post('/users', user, function(data){
-		console.log(data);
+		$.post('/users', user, function(new_user){
+		var current_user = new_user;
+		console.log(current_user);
 		window.location.href='/home';
+		});
+	});
+
+	//Login
+	$('#login-form').on('submit', function(e){
+		e.preventDefault();
+		var login = $(this).serialize();
+		$.post('/login', login, function(data){
+			window.location.href ='/home';
 		});
 	});
 
@@ -35,17 +46,6 @@ $(document).ready(function(){
 			console.log(data.msg);
 			window.location.href ='/logout';
 		});
-	});
-
-	//Login
-	$('#login-form').on('submit', function(e){
-		e.preventDefault();
-		var login = $(this).serialize();
-
-		$.post('/login', login, function(data){
-			window.location.href ='/home';
-		});
-
 	});
 
 });

@@ -17,23 +17,28 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  cookie: { maxAge: 600000 }
+  cookie: { maxAge: 60000000000 }
 }));
 
 //Routes
 
-//SignUp
+//Home Page
+app.get('/', function (req, res){
+		res.render('splash');
+});
+
+//Sign Up Page
 app.get('/signup', function(req,res){
 	res.render('signup');
 });
-
 //New User
 app.post('/users', function (req,res){
 	var user = req.body;
-	db.User.createSecure(user.email, user.password, function(err, user){
+	console.log(user);
+	db.User.createSecure(user.username, user.email, user.password, function(err, user){
 		if (err){
 			console.log(err);
-			res.json({error: err, user: null, msg: 'THis doenst wokr'});
+			res.json({error: err, user: null, msg: "There was an error with creating User"});
 		} else {
 			req.session.userId = user._id;
 			req.session.user = user;
@@ -42,53 +47,72 @@ app.post('/users', function (req,res){
 	});
 });
 
+//Login Page
+app.get('/login', function (req,res){
+	res.render('login');
+});
+//UserLogin
+app.post('/login', function(req, res){
+	db.User.authenticate(req.body.email, req.body.password, function(err, loggedInUser){
+		if(err){
+			console.log('authentication error: ', err);
+			res.status(500).send();
+		} else {
+			console.log('setting session user id ', loggedInUser._id);
+			req.session.userId = loggedInUser._id;
+			req.session.user= loggedInUser;
+			res.json(req.session.user);
+		}
+	});
+});
+
 //Check Auth
 app.get('/current-user',function (req,res){
 	console.log(req.session);
-	res.json({user: req.session.user});
-});
-
-//Login
-app.get('/login', function (req,res){
-	res.render('login');
+	res.send(req.session.user);
 });
 
 //Logout
 app.get('/logout', function(req, res){
 	req.session.userId = null;
 	req.session.user = null;
-	res.redirect('/login');
-});
-
-//Home Page
-app.get('/', function (req, res){
-	res.render('home');
+	res.redirect('/splash');
 });
 
 //Logged In Index
 app.get('/home', function (req, res){
-	console.log(req.session);
-	db.Bank.find({}, function(err, banks){
-		if(err){
-			console.log(err);
+	if (req.session.user === null) {
+		console.log('ITS NULLLLLL')
+		res.redirect('/');
 		} else {
-			res.render('index', {banks: banks, userId: req.session.userId});
-		}
-	});
+		console.log("This is the SESSION: ", req.session);
+		db.User.findOne({_id: req.session.userId}).populate('banks').exec(function(err, user){
+		console.log("This is the USER:", user);
+			if(err){
+			console.log(err);
+			} else {
+			req.session.user.banks = user.banks;
+			res.render('index', {banks: req.session.user.banks, username: req.session.user.username, userId: req.session.userId});
+			}
+		});
+	}
 });
 
-//Show
-app.get('/banks/:_id', function(req,res){
-	var bank = banks[req.params.id];
-	res.render('banks-show', {bank: bank});
-});
-
-//Create 
+//Create New Bank
 app.post('/api/banks', function(req, res){
-	db.Bank.create(req.body, function(err, bank){
+	db.Bank.create({name: req.body.name, cost: req.body.cost}, function(err, bank){
 	if (err) {
 		res.json(err);
 	} else {
+		db.User.findOne({_id: req.session.userId}, function(err, user){
+			if (err) { 
+				res.json(err);
+			} else {
+				user.banks.push(bank._id);
+				user.save();
+				console.log("This is the user! --> ", user);
+			}
+		});
 		console.log(bank);
 		res.json(bank);
 		}
@@ -96,31 +120,27 @@ app.post('/api/banks', function(req, res){
 });
 
 //Delete
-app.delete('/api/banks/:_id', function(req,res){
-	db.Bank.findById(req.params._id, function(err, bank){
-		if(err){
-			res.json(err);
+app.delete('/api/banks/:id', function(req,res){
+	db.Bank.remove({_id: req.params.id}, function (err, result){
+		if (err){
+			console.log(err);
 		} else {
-			console.log('This bank was deleted: ' + bank);
-			db.Bank.remove(function(err, bank){
-			res.json(bank);
-			});
+			res.json("Success");
 		}
 	});
 });
 
-//Update Progress Amount
+//Update 
 app.put('/api/banks/:id', function(req, res) {
 	db.Bank.findById(req.params.id, function(err, bank){
-		var progress_added = parseInt(req.body.progress_added);
-		if(err){
+		var cash_added = parseInt(req.body.cash_added);
+		if (err) {
 			res.json(err);
-			console.log('This route didnt work!');
-		} else if ((bank.progress_added + progress_added) > bank.price){
+		} else if ((bank.cash_added + cash_added) > bank.cost) {
 			res.json(err);
-			console.log('Too much progress added');	
+			console.log('Too much cash added!');	
 		} else {
-			bank.progress_added += progress_added;
+			bank.cash_added += cash_added;
 			bank.itemName = req.body.itemName || bank.itemName;
 			bank.save(function(err, bank){
 				if (err) {
@@ -134,39 +154,24 @@ app.put('/api/banks/:id', function(req, res) {
 	});
 });
 
-//Update Item Name
 
-//Login
-app.post('/login', function(req, res){
-	db.User.authenticate(req.body.email, req.body.password, function(err, loggedInUser){
-		if(err){
-			console.log('authentication error: ', err);
-			res.status(500).send();
-		} else {
-			console.log('setting session user id ', loggedInUser._id);
-			req.session.userId = loggedInUser._id;
-			res.json(loggedInUser._id);
-		}
-	});
-});
-
-//Add Comment
-app.post('/api/banks/:bankId/comments', function (req, res) {
-  // set the value of the list id
-  var bankId = req.params.bankId;
-  // store new comment in memory with data from request body
-  var newComment = req.body.text;
-  console.log(req.body);
-  // find list in db by id and add new todo
-  console.log('This is the bankId ' + bankId);
-  db.Bank.findOne({_id: bankId}, function (err, foundBank) {
-    foundBank.comments.push({text: newComment});
-    // db.Bank.comments.push(newComment);
-   	foundBank.save(function (err, bank) {
-  	  res.json(bank);
-    });
-  });
-});
+// //Add Comment
+// app.post('/api/banks/:bankId/comments', function (req, res) {
+//   // set the value of the list id
+//   var bankId = req.params.bankId;
+//   // store new comment in memory with data from request body
+//   var newComment = req.body.text;
+//   console.log(req.body);
+//   // find list in db by id and add new todo
+//   console.log('This is the bankId ' + bankId);
+//   db.Bank.findOne({_id: bankId}, function (err, foundBank) {
+//     foundBank.comments.push({text: newComment});
+//     // db.Bank.comments.push(newComment);
+//    	foundBank.save(function (err, bank) {
+//   	  res.json(bank);
+//     });
+//   });
+// });
 
 //Server Listener
 app.listen(process.env.PORT || 3000, function() {

@@ -1,39 +1,7 @@
-<form id="new-bank-form">
-    <div class="row">
-        <div class='col-md-6 col-md-offset-3 form-group'>
-            <div class='col-md-6'>
-                <h3>Task:</h3>
-                <input name="itemName" type="text" class="form-control" id="itemName" required>
-            </div>
-            <div class='col-md-6'>
-                <h3>Deadline:</h3>
-                <div class='input-group date' id='datetimepicker1'>
-                    <input id='deadline' name='deadline' type='text' class='form-control'/>
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker({
-                            format: 'MMMM D YYYY'
-                        });
-                    });
-                </script>
-            <!-- <button type ="submit" class="btn btn-default btn-lg"><span class="bank-button">Create Bar</span></button> -->
-            <button type ="submit" class="btn btn-default btn-lg"><span class="bank-button">Create Bar</span></button>
-        </div>
-    </div>
+<form id="newBankForm">
+  <h3>Item Name: </h3>
+      <input name="name" type="text" class="form-control" id="itemName" required>
+  <h3>Item Price: </h3>
+      <input name="cost" type="text" class="form-control" id="itemCost" required>
+      <button type ="submit" class="btn btn-default btn-lg"><span class="bank-button">Create Bank</span></button>
 </form>
-
-   <!--    $(function () {
-         $('#datetimepicker1').datetimepicker({
-            format: "dd MM yyyy",
-            pickTime: false,
-            autoclose: true,
-            todayBtn: true,
-            language: 'tr',
-            pickerPosition: "bottom-right"          
-            });
-        }); -->

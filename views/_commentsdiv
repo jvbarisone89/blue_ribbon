@@ -1,9 +1,0 @@
-<!-- Hidden Comments Div-->
-<div class='comment-list' display='hide'> 
-    <% banks.forEach(function(bank) { %>
-        <li>
-        <%= bank.comments.text %>
-        </li>
-    <% }); %>
-</div> -->
-<!-- /Hidden Comments Div --> 
