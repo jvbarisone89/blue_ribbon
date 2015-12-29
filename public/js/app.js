@@ -4,6 +4,8 @@ var addprogressmodal = "<div class='modal fade' id='basicModal' tabindex='-1' ro
 
 	//Create New Bank
 	$("#newBankForm").on("submit", function(e){
+		var isvalidate = $("#newBankForm").valid();
+		if(isvalidate) {
 		e.preventDefault();
 		var data = $(this).serialize();
     $.post("/api/banks", data, function(data) {
@@ -13,7 +15,8 @@ var addprogressmodal = "<div class='modal fade' id='basicModal' tabindex='-1' ro
     	$(".bankList").append("<li id ='" + data._id + "' class='bank-li'><div class ='well bank-list-wrapper'><i class='ion-close-round pull-right delete'></i><h4>Item: " + data.name + "</h4><h4>Price: $" + data.cost + "</h4><h4>Cash Added: $<span id='CashId" + data._id + "'>" + data.cash_added + "</span></h4><div class = 'bankDetails'><div class='progress'><div id = 'ProgressId" + data._id + "'class='progress-bar' role='progressbar' style='width:0'></div></div><a href='#' class='btn primary' data-toggle='modal' data-target='#basicModal'><i class='ion ion-plus-circled' style='font-size: 40px'></i></a>" + addprogressmodal + "</div></div></li>");
     	$('#newBankForm')[0].reset();
     	$("#banksDiv").scrollTop($("#banksDiv")[0].scrollHeight);
-    });
+    	});
+    }
 	});
 	//Add Cash to Bank
 	$('.bankList').on('click', '.btn', function(e){

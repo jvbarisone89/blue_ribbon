@@ -35,7 +35,7 @@ input {
 
 
 .home_page_header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 50px; 
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
@@ -43,7 +43,7 @@ input {
 }
 
 .login-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 50px; 
     padding-bottom: 50px;
     text-align: left;
     color: #000000;
@@ -52,8 +52,7 @@ input {
 
 
 .signup_header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
+    padding-top: 50px; 
     text-align: left;
     color: #000000;
     background-size: cover;
@@ -64,8 +63,6 @@ input {
     padding-bottom: 50px;
     text-align: center;
     color: #d87002;
-    background: url(../img/about.jpg) no-repeat center center;
-    background-size: cover;
     max-height: 100px;
 }
 
@@ -91,14 +88,6 @@ input {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
-@media(max-width:767px) {
-    .intro-message {
-        margin-top: -10%;
-        margin-bottom: -20%;
-/*        padding-bottom: 15%;
-        height: 200px;
-        clear: right;*/
-    }
 
 .intro-message > h1 {
     font-size: 3em;
@@ -108,27 +97,8 @@ input {
     width: 100%;
 }
 
-.bank-button {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-
 .section-heading {
     margin-bottom: 30px;
-}
-
-    ul.banner-social-buttons > li {
-        display: block;
-        margin-bottom: 20px;
-        padding: 0;
-    }
-
-    ul.banner-social-buttons > li:last-child {
-        margin-bottom: 0;
-    }
 }
 
 footer {
@@ -150,8 +120,9 @@ footer {
     margin-left: 200px;
 }
 
-.about-subtitle {
+#newBankButton {
     margin-top: 20px;
+    display: block;
 }
 
 .item-update-form {

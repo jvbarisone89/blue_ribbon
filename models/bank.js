@@ -9,7 +9,7 @@ var CommentSchema = mongoose.Schema({
 //Bank Schema
 var BankSchema = mongoose.Schema({
   name: {type: String, required: true},
-  cost: {type: Number, required: false, default: 100},
+  cost: {type: Number, required: true},
   cash_added: {type: Number, required: false, default: 0},
 });
 
