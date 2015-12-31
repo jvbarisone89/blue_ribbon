@@ -24,9 +24,9 @@ $(document).ready(function(){
 		e.preventDefault();
 		var user = ($(this).serialize());
 		$.post('/users', user, function(new_user){
-		var current_user = new_user;
-		console.log(current_user);
-		window.location.href='/home';
+			var current_user = new_user;
+			console.log(current_user);
+			window.location.href='/home';
 		});
 	});
 
@@ -40,11 +40,11 @@ $(document).ready(function(){
 	});
 
 	//Logout
-	$('#logout').on('click', function(e){
+	$('#logout').on("click", function(e){
 		e.preventDefault();
+		// console.log('logout button is listening');
 		$.get('/logout', function(data){
 			console.log(data.msg);
-			window.location.href ='/logout';
 		});
 	});
 

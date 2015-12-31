@@ -31,6 +31,7 @@ app.get('/', function (req, res){
 app.get('/signup', function(req,res){
 	res.render('signup');
 });
+
 //New User
 app.post('/users', function (req,res){
 	var user = req.body;
@@ -51,7 +52,7 @@ app.post('/users', function (req,res){
 app.get('/login', function (req,res){
 	res.render('login');
 });
-//UserLogin
+//User Login
 app.post('/login', function(req, res){
 	db.User.authenticate(req.body.email, req.body.password, function(err, loggedInUser){
 		if(err){
@@ -76,13 +77,12 @@ app.get('/current-user',function (req,res){
 app.get('/logout', function(req, res){
 	req.session.userId = null;
 	req.session.user = null;
-	res.redirect('/splash');
 });
 
 //Logged In Index
 app.get('/home', function (req, res){
 	if (req.session.user === null) {
-		console.log('ITS NULLLLLL')
+		console.log('ITS NULLLLLL');
 		res.redirect('/');
 		} else {
 		console.log("This is the SESSION: ", req.session);
@@ -119,7 +119,7 @@ app.post('/api/banks', function(req, res){
 	});
 });
 
-//Delete
+//Delete Bank
 app.delete('/api/banks/:id', function(req,res){
 	db.Bank.remove({_id: req.params.id}, function (err, result){
 		if (err){
@@ -130,7 +130,7 @@ app.delete('/api/banks/:id', function(req,res){
 	});
 });
 
-//Update 
+//Update Bank
 app.put('/api/banks/:id', function(req, res) {
 	db.Bank.findById(req.params.id, function(err, bank){
 		var cash_added = parseInt(req.body.cash_added);
@@ -153,25 +153,6 @@ app.put('/api/banks/:id', function(req, res) {
 		}
 	});
 });
-
-
-// //Add Comment
-// app.post('/api/banks/:bankId/comments', function (req, res) {
-//   // set the value of the list id
-//   var bankId = req.params.bankId;
-//   // store new comment in memory with data from request body
-//   var newComment = req.body.text;
-//   console.log(req.body);
-//   // find list in db by id and add new todo
-//   console.log('This is the bankId ' + bankId);
-//   db.Bank.findOne({_id: bankId}, function (err, foundBank) {
-//     foundBank.comments.push({text: newComment});
-//     // db.Bank.comments.push(newComment);
-//    	foundBank.save(function (err, bank) {
-//   	  res.json(bank);
-//     });
-//   });
-// });
 
 //Server Listener
 app.listen(process.env.PORT || 3000, function() {

@@ -27,8 +27,9 @@ var addprogressmodal = "<div class='modal fade' id='basicModal' tabindex='-1' ro
 		// console.log($('.bankId').val());
 	});
 	//Add Cash Modal Submit
-	$('.form-group').on('click', '.cashSubmit', function(e) {
+	$('.bankList').on('click', '.cashSubmit', function(e) {
 		e.preventDefault();
+		console.log('I was clicked!');
 		var cash_added = $('#cashValue').val();
 		console.log(cash_added);
 		var bankId = $('.bankId').val();
